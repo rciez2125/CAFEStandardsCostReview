@@ -1,0 +1,41 @@
+﻿Technologies,Abbreviation,PercentI4Low,PercentI4High,PercentI4Avg,PercentV6Low,PercentV6High,PercentV6Avg,PercentV8Low,PercentV8High,PercentV8Avg,CostI4Low,CostI4High,CostI4Avg,CostV6Low,CostV6High,CostV6Avg,CostV8Low,CostV8High,CostV8Avg
+Low Friction Lubricants ,LUB ,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,0.5,3,5,4,3,5,4,3,5,4
+Engine Friction Reduction ,EFR ,0.5,2,1.3,0.5,2,1.3,1,2,1.5,32,52,42,48,78,63,64,104,84
+"VVT-Coupled Cam Phasing (CCP), SOHC ",CCP ,1.5,3,2.3,1.5,3.5,2.5,2,4,3,35,35,35,70,70,70,70,70,70
+"Dis cr ete Variable Valve Lif t (DVVL), SOHC ",DVVL ,1.5,3,2.3,1.5,3,2.3,2,3,2.5,130,160,145,180,210,195,280,320,300
+"Cylinder Deactiv ation, SOHC ",DEAC ,,,,4,6,5,5,10,7.5,,,,340,400,370,357,420,388.5
+VVT- Intake Cam Phasing (ICP) ,ICP,1,2,1.5,1,2,1.5,1.5,2,1.8,35,35,35,70,70,70,70,70,70
+VVT- Dual Cam Phasing (DCP) ,DCP ,1.5,2.5,2,1.5,3,2.3,1.5,3,2.3,35,35,35,70,70,70,70,70,70
+"Discrete Variable Valve Lift (DVVL), DOHC ",DVVL ,1.5,3,2.3,1.5,3.5,2.5,2,4,3,130,160,145,180,220,200,260,300,280
+Continuously Variable Valve Lift (CVVL),CVVL ,3.5,6,4.8,3.5,6.5,5,4,6.5,5.3,159,205,182,290,310,300,350,390,370
+"Cylinder Deactivation, OHV ",DEAC  ,,,,4,6,5,5,10,7.5,,,,220,250,235,255,255,255
+"VVT- Coupled Cam Phasing (CCP) , OHV ",CCP ,1.5,3,2.3,1.5,3.5,2.5,2,4,3,35,35,35,35,35,35,35,35,35
+"Discrete Variable Valve Lift (DVVL), OHV ",DVVL ,1.5,2.5,2,1.5,3,2.3,2,3,2.5,130,160,145,210,240,225,280,320,300
+Stoichiometic Gasoline Direct Injection (GDI),SGDI ,1.5,3,2.3,1.5,3,2.3,1.5,3,2.3,117,195,156,169,256,213,295,351,323
+Turbocharging and Downsizing ,TRBDS ,2,5,3.5,4,6,5,4,6,5,370,490,430,-144,205,31,525,790,658
+Conversion to  Diesel ,DSL ,15,35,25,15,35,25,,,,2154,2632,2393,2857,3491,3174,,,
+Conversion to  Advanced Diesel ,ADSL,7,13,10,7,13,10,22,38,30,520,520,520,583,683,683,3513,4293,3903
+Electric Power Steering (EPS) ,EPS  ,1,3,2,1,3,2,1,3,2,70,120,95,70,120,95,70,120,95
+Improved Accessories ,IACC ,0.5,1.5,1,0.5,1.5,1,0.5,1.5,1,70,90,80,70,90,80,70,90,80
+Higher Voltage/Improved Alternator ,HVIA ,0,0.5,0.3,0,0.5,0.3,0,0.5,0.3,15,55,35,15,55,35,15,55,35
+Continuously Variable Transmission (CVT) ,CVT ,1,7,4,1,7,4,1,7,4,150,170,160,243,263,253,243,263,253
+5-spd Auto. Trans. w/ Improved Internals ,,2,3,2.5,2,3,2.5,2,3,2.5,133,133,133,133,133,133,133,133,133
+6-spd Auto. Trans. w/ Improved Internals ,,1,2,1.5,1,2,1.5,1,2,1.5,133,215,174,133,215,174,133,215,174
+7-spd Auto. Trans. w/ Improved Internals ,,2,2,2,2,2,2,2,2,2,170,300,235,170,300,235,170,300,235
+8-spd Auto. Trans. w/ Improved Internals ,,1,1,1,1,1,1,1,1,1,425,425,425,425,425,425,425,425,425
+6/7/8 -spd Auto. Trans. w/ Improved Internals ,NAUTO  ,3,8,5.5,3,8,5.5,3,8,5.5,137,425,281,137,425,281,137,425,281
+6/7- spd DCTfrom 4-spd AT ,DCT ,6,9,7.5,6,9,7.5,6,9,7.5,-147,185,19,-147,185,19,-147,185,19
+6/7- spd DCTfro m 6-spd AT ,DCT ,3,4,3.5,3,4,3.5,3,4,3.5,-14,400,193,-14,400,193,-14,400,193
+12V BAS Micro-Hybrid ,MHEV ,2,4,3,2,4,3,2,4,3,450,550,500,585,715,650,720,880,800
+Integrated Starter Generator ,ISG,29,39,34,29,39,34,29,39,34,1760,2640,2200,2000,3000,2500,3200,4800,4000
+Power Split Hybrid ,PSHEV ,24,50,37,24,50,37,24,50,37,2708,4062,3385,3120,4680,3900,4000,6000,5000
+2-Mode Hybrid ,2MHEV,25,45,35,25,45,35,25,45,35,5200,7800,6500,5200,7800,6500,5200,7800,6500
+Plug-in hybrid ,PHEV ,,,,,,,,,,8000,12000,10000,9600,14400,12000,13600,20400,17000
+Mass Reduction - 1 % ,MR1 ,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,37,45,41,48,58,53,68,82,75
+Mass Reduction - 2% ,MR2 ,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,77,93,85,100,121,111,142,170,156
+Mass Reduction - 5 % ,MR5 ,3,3.5,3.3,3,3.5,3.3,3,3.5,3.3,217,260,239,283,339,311,399,479,439
+Mass Reduction - 10% ,MR10 ,6,7,6.5,6,7,6.5,6,7,6.5,520,624,572,679,815,747,958,1150,1054
+Mass Reduction - 20% ,MR20 ,11,13,12,11,13,12,11,13,12,1600,1700,1650,1600,1800,1700,1600,1900,1750
+Low Rolling Resistance Tires ,ROLL ,1,3,2,1,3,2,1,3,2,30,40,35,30,40,35,30,40,35
+Low Drag Brakes ,LDB ,1,1,1,1,1,1,1,1,1,,,,,,,,,
+Aero Drag Reduction 10% ,AERO ,1,2,1.5,1,2,1.5,1,2,1.5,40,50,45,40,50,45,40,50,45

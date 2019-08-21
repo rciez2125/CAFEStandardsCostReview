@@ -12,7 +12,7 @@ data90 = import1990() # 2 rows, one for cars, one for trucks, sales data needs c
 #data99 = import99()
 data07 = import2007() # 6 rows, low, avg, high for cars and light trucks
 data17 = import2017() # 6 rows, low, avg, high for cars and light trucks
-#data25 # not necessary for now 
+#data25 # not done yet  
 
 # create cost curves with uncertainty from the raw data
 baseYr = 2015
@@ -51,7 +51,7 @@ curveCoeffs[5,:] = data17[2,:] #cars high
 curveCoeffs[6,:] = [2025, 2010, 24.349, 4.828, 4.443, 0.2146] # the standard errors definitely aren't correct
 curveCoeffs_high = inflationConversion(curveCoeffs, baseYr)
 
-numSims = 100
+numSims = 500
 costOut_avg = np.zeros((76,5,numSims))
 costOut_low = np.zeros((76,5,numSims))
 costOut_high = np.zeros((76,5,numSims))
@@ -104,9 +104,8 @@ plt.fill_between(plotData[:,0], plotData[:,8], plotData[:,9], alpha = 0.5)
 plt.xlim(1975,2018)
 
 
-
 plt.ylim(0, 7000)
-plt.text(1997, 5000, 'Pull from uniform distribution of different curve\ncoefficients. Missing some standard error information\nand only using high estimates', HorizontalAlignment = 'center')
+plt.text(1997, 5000, 'Pull from uniform distribution of different curve\ncoefficients. Still working on data cleaning, using some placeholders', HorizontalAlignment = 'center')
 plt.text(1997, 3500, 'Monte Carlo Simulations = '+str(numSims), HorizontalAlignment='center')
 plt.ylabel('Cumulative Cost ['+str(baseYr)+'$]')
 plt.xlabel('Year')

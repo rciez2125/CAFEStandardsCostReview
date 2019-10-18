@@ -1,27 +1,25 @@
-﻿TECHNOLOGY,BASELINE,EEA,SRI,BSA,FORD,GM,CHRYSLER,TOYOTA,HONDA,NISSAN,MITSUBISHI,4 Cyl,6 Cyl,8 Cyl,4 Cyl,6 Cyl,8 Cyl
-Roller cam followers,Flat followers,2.00,1.70,0.30,3.00,1.50,2.40,0.80,1.00,1.40,1.30,16.00,24.00,32.00,65.00,65.00,65.00
-"Friction reduction, -10%",Base 1987,2.00,2.00,,2.00,1.00,0.50,0.80,1.00,1.40,,30.00,40.00,50.00,60.00,60.00,60.00
-Accessory improvement,Conventional,0.50,0.70,,0.70,0.00,1.40,0.50,,0.20,0.80,12.00,12.00,12.00,200.00,200.00,200.00
-Deceleration fuel restriction,None,1.00,1.00,,1.00,,,,,,,,,,5.00,5.00,5.00
-"Compression ratio, +.5",9:1 (EEA 4-V only),,2.00,,1.50,1.00,,1.30,,,1.00,,,,1.00,1.00,1.00
-Throttle-body fuel injection,Carburetor,3.00,2.60,3.00,3.00,2.50,3.40,0.80,1.00,3.30,,42.00,70.00,70.00,65.00,65.00,65.00
-Multipoint fuel injection,Carburetor,5.00,4.60,3.10,6.00,4.00,4.90,2.50,3.50,4.30,,90.00,134.00,150.00,215.00,215.00,215.00
-VALVE TRAIN,,,,,,,,,,,,,,,,,
-Overhead camshaft,Overhead valve,3.00,2.50,1.20,3.50,1.50,2.00,,0.80,2.00,,110.00,160.00,200.00,400.00,400.00,400.00
-4 valves per cylinder,2 valves,5.00,3.00,2.10,3.50,3.00,3.50,4.50,2.00,3.40,,140.00,180.00,225.00,400.00,400.00,400.00
-Variable valve timing,Fixed timing,6.00,2.60,,3.00,2.00,1.50,2.00,2.50,2.70,,140.00,200.00,267.00,100.00,100.00,100.00
-4-cylinder,6-cylinder,3.00,0.00,1.20,-3.00,0.00,0.00,0.00,0.00,0.00,,0.00,-300.00,-550.00,0.00,-300.00,-550.00
-6-cylinder,8-cylinder,3.00,1.00,-0.90,0.00,0.00,0.00,0.00,0.00,0.00,,300.00,0.00,-250.00,300.00,0.00,-250.00
-Torque converter lock-up,Open converter,3.00,2.00,2.80,2.00,3.00,3.00,2.50,3.00,3.20,,50.00,50.00,50.00,56.00,56.00,56.00
-Electric transmission control,Hydraulic,0.50,0.50,0.50,0.50,0.00,0.50,0.50,0.50,0.60,,24.00,24.00,24.00,122.00,122.00,122.00
-4-speed Automatic,3-speed auto,4.50,2.80,2.90,3.00,4.00,2.00,2.30,1.80,3.00,,225.00,225.00,225.00,230.00,230.00,230.00
-5-speed Automatic,3-speed auto,7.00,3.30,,5.00,4.50,3.00,3.50,3.30,4.00,,325.00,325.00,325.00,530.00,530.00,530.00
-Continuously variable transmission,3-speed auto,8.00,4.80,,5.50,4.50,3.00,,3.80,5.50,,325.00,325.00,325.00,640.00,640.00,640.00
-5-speed Manual,3-speed auto,8.00,4.80,0.00,5.50,0.00,0.00,0.00,0.00,0.00,,,,,,,
-Front wheel drive,Rear wheel drive          ,10.00,0.50,0.80,1.00,0.00,,,1.10,3.00,,240.00,240.00,240.00,26.00,26.00,26.00
-Aerodynamics,Base,2.30,2.40,2.70,2.00,3.10,2.00,2.00,1.50,1.20,1.70,40.00,40.00,40.00,60.00,60.00,60.00
-"Weight reduction, -10%",Base,6.60,5.00,9.10,5.50,8.00,5.00,5.50,5.00,6.00,,,,,470.00,470.00,470.00
-Electric power steering,Conventional,1.00,1.40,,1.50,0.50,1.00,1.00,1.00,1.00,,45.00,45.00,45.00,61.00,61.00,61.00
-"Advanced tires, -10%",Base,1.00,1.00,0.60,1.00,0.50,0.50,,,1.00,1.00,18.00,18.00,18.00,20.00,20.00,20.00
-Advanced lubricants,Conventional,0.50,0.30,,0.20,,,0.50,0.50,,,2.00,3.00,3.00,3.00,3.00,3.00
-,,,,,,,,,,,,,,,,,
+﻿TechCat,TECHNOLOGY,BASELINE,EEA,SRI,BSA,FORD,GM,CHRYSLER,TOYOTA,HONDA,NISSAN,MITSUBISHI,4CylEEA,6CylEEA,8CylEEA,4CylSRI,6CylSRI,8CylSRI
+General,Roller cam followers,Flat followers,2,1.7,0.3,3,1.5,2.4,0.8,1,1.4,1.3,16,24,32,65,65,65
+General,"Friction reduction, -10%",Base 1987,2,2,,2,1,0.5,0.8,1,1.4,,30,40,50,60,60,60
+General,Accessory improvement,Conventional,0.5,0.7,,0.7,0,1.4,0.5,,0.2,0.8,12,12,12,200,200,200
+General,Deceleration fuel restriction,None,1,1,,1,,,,,,,,,,5,5,5
+General,"Compression ratio, +.5",9:1 (EEA 4-V only),,2,,1.5,1,,1.3,,,1,,,,1,1,1
+FuelSys,Throttle-body fuel injection,Carburetor,3,2.6,3,3,2.5,3.4,0.8,1,3.3,,42,70,70,65,65,65
+FuelSys,Multipoint fuel injection,Carburetor,5,4.6,3.1,6,4,4.9,2.5,3.5,4.3,,90,134,150,215,215,215
+Valve,Overhead camshaft,Overhead valve,3,2.5,1.2,3.5,1.5,2,,0.8,2,,110,160,200,400,400,400
+Valve,4 valves per cylinder,2 valves,5,3,2.1,3.5,3,3.5,4.5,2,3.4,,140,180,225,400,400,400
+Valve,Variable valve timing,Fixed timing,6,2.6,,3,2,1.5,2,2.5,2.7,,140,200,267,100,100,100
+Cyl,4-cylinder,6-cylinder,3,0,1.2,-3,0,0,0,0,0,,0,-300,-550,0,-300,-550
+Cyl,6-cylinder,8-cylinder,3,1,-0.9,0,0,0,0,0,0,,300,0,-250,300,0,-250
+Transmission,Torque converter lock-up,Open converter,3,2,2.8,2,3,3,2.5,3,3.2,,50,50,50,56,56,56
+Transmission,Electric transmission control,Hydraulic,0.5,0.5,0.5,0.5,0,0.5,0.5,0.5,0.6,,24,24,24,122,122,122
+Transmission,4-speed Automatic,3-speed auto,4.5,2.8,2.9,3,4,2,2.3,1.8,3,,225,225,225,230,230,230
+Transmission,5-speed Automatic,3-speed auto,7,3.3,,5,4.5,3,3.5,3.3,4,,325,325,325,530,530,530
+Transmission,Continuously variable transmission,3-speed auto,8,4.8,,5.5,4.5,3,,3.8,5.5,,325,325,325,640,640,640
+Transmission,5-speed Manual,3-speed auto,8,4.8,0,5.5,0,0,0,0,0,,,,,,,
+Design,Front wheel drive,Rear wheel drive          ,10,0.5,0.8,1,0,,,1.1,3,,240,240,240,26,26,26
+Design,Aerodynamics,Base,2.3,2.4,2.7,2,3.1,2,2,1.5,1.2,1.7,40,40,40,60,60,60
+Design,"Weight reduction, -10%",Base,6.6,5,9.1,5.5,8,5,5.5,5,6,,,,,470,470,470
+Design,Electric power steering,Conventional,1,1.4,,1.5,0.5,1,1,1,1,,45,45,45,61,61,61
+Design,"Advanced tires, -10%",Base,1,1,0.6,1,0.5,0.5,,,1,1,18,18,18,20,20,20
+Design,Advanced lubricants,Conventional,0.5,0.3,,0.2,,,0.5,0.5,,,2,3,3,3,3,3

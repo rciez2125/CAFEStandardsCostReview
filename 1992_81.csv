@@ -1,0 +1,9 @@
+﻿vehicleClass,MPG_baseline,MPG_highCon,MPG_lowCon,cost_HighCon_low,cost_HighCon_high,cost_LowCon_low,cost_LowCon_high
+subcompact,31.4,39,44,500,1250,1000,2500
+compact,29.4,34,38,500,1250,1000,2500
+midsize,26.1,32,35,500,1250,1000,2500
+large,23.5,30,33,500,1250,1000,2500
+smallPickup,25.7,29,32,500,1000,1000,2000
+smallVan,22.8,28,30,500,1250,1000,2500
+smallSUV,21.3,26,29,500,1250,1250,2500
+largePickup,19.1,23,25,750,1750,1500,2750

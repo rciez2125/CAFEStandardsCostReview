@@ -13,24 +13,9 @@ SI,"VVT- Coupled Cam Phasing (CCP) , OHV ",CCP ,1.5,3,2.3,1.5,3.5,2.5,2,4,3,35,3
 SI,"Discrete Variable Valve Lift (DVVL), OHV ",DVVL ,1.5,2.5,2,1.5,3,2.3,2,3,2.5,130,160,145,210,240,225,280,320,300
 SI,Stoichiometic Gasoline Direct Injection (GDI),SGDI ,1.5,3,2.3,1.5,3,2.3,1.5,3,2.3,117,195,156,169,256,213,295,351,323
 SI,Turbocharging and Downsizing ,TRBDS ,2,5,3.5,4,6,5,4,6,5,370,490,430,-144,205,31,525,790,658
-AltFuels,Conversion to  Diesel ,DSL ,15,35,25,15,35,25,,N/A,,2154,2632,2393,2857,3491,3174,,N/A,
-AltFuels,Conversion to  Advanced Diesel ,ADSL,7,13,10,7,13,10,22,38,30,520,520,520,583,683,683,3513,4293,3903
 Accessories,Electric Power Steering (EPS) ,EPS  ,1,3,2,1,3,2,1,3,2,70,120,95,70,120,95,70,120,95
 Accessories,Improved Accessories ,IACC ,0.5,1.5,1,0.5,1.5,1,0.5,1.5,1,70,90,80,70,90,80,70,90,80
 Accessories,Higher Voltage/Improved Alternator ,HVIA ,0,0.5,0.3,0,0.5,0.3,0,0.5,0.3,15,55,35,15,55,35,15,55,35
-Transmission,Continuously Variable Transmission (CVT) ,CVT ,1,7,4,1,7,4,1,7,4,150,170,160,243,263,253,243,263,253
-Transmission,5-spd Auto. Trans. w/ Improved Internals ,,2,3,2.5,2,3,2.5,2,3,2.5,133,133,133,133,133,133,133,133,133
-Transmission,6-spd Auto. Trans. w/ Improved Internals ,,1,2,1.5,1,2,1.5,1,2,1.5,133,215,174,133,215,174,133,215,174
-Transmission,7-spd Auto. Trans. w/ Improved Internals ,,2,2,2,2,2,2,2,2,2,170,300,235,170,300,235,170,300,235
-Transmission,8-spd Auto. Trans. w/ Improved Internals ,,1,1,1,1,1,1,1,1,1,425,425,425,425,425,425,425,425,425
-Transmission,6/7/8 -spd Auto. Trans. w/ Improved Internals ,NAUTO  ,3,8,5.5,3,8,5.5,3,8,5.5,137,425,281,137,425,281,137,425,281
-Transmission,6/7- spd DCTfrom 4-spd AT ,DCT ,6,9,7.5,6,9,7.5,6,9,7.5,-147,185,19,-147,185,19,-147,185,19
-Transmission,6/7- spd DCTfro m 6-spd AT ,DCT ,3,4,3.5,3,4,3.5,3,4,3.5,-14,400,193,-14,400,193,-14,400,193
-AltFuels,12V BAS Micro-Hybrid ,MHEV ,2,4,3,2,4,3,2,4,3,450,550,500,585,715,650,720,880,800
-AltFuels,Integrated Starter Generator ,ISG,29,39,34,29,39,34,29,39,34,1760,2640,2200,2000,3000,2500,3200,4800,4000
-AltFuels,Power Split Hybrid ,PSHEV ,24,50,37,24,50,37,24,50,37,2708,4062,3385,3120,4680,3900,4000,6000,5000
-AltFuels,2-Mode Hybrid ,2MHEV,25,45,35,25,45,35,25,45,35,5200,7800,6500,5200,7800,6500,5200,7800,6500
-AltFuels,Plug-in hybrid ,PHEV ,,N/A,,,N/A,,,N/A,,8000,12000,10000,9600,14400,12000,13600,20400,17000
 Design,Mass Reduction - 1 % ,MR1 ,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,0.3,37,45,41,48,58,53,68,82,75
 Design,Mass Reduction - 2% ,MR2 ,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,1.4,77,93,85,100,121,111,142,170,156
 Design,Mass Reduction - 5 % ,MR5 ,3,3.5,3.3,3,3.5,3.3,3,3.5,3.3,217,260,239,283,339,311,399,479,439

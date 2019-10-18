@@ -1,0 +1,25 @@
+﻿TechCat,Technology,FCE_low,FCE_high,FCE_avg,RPE_low,RPE_high,RPE_avg,Subcompact_low,Subcompact_avg,Subcompact_high,Compact_low,Compact_avg,Compact_high,Midsize_low,Midsize_avg,Midsize_high,Large_low,Large_avg,Large_high,SmallSUV_low,SmallSUV_avg,SmallSUV_high,MidSUV_low,MidSUV_avg,MidSUV_high,LargeSUV_low,LargeSUV_avg,LargeSUV_high,Minivan_low,Minivan_avg,Minivan_high,SmallPickup_low,SmallPickup_avg,SmallPickup_high,LargePickup_low,LargePickup_avg,LargePickup_high
+SI,Engine friction reduction,1,5,3,35,140,87.5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+SI,Low friction lubricants,1,1,1,8,11,9.5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+SI,"Multivalve, overhead camshaft",2,5,3.5,105,140,122.5,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+SI,Variable Valve Timing,2,3,2.5,35,140,87.5,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,1,1,1,1,1
+SI,Variable valve lift and timing,1,2,1.5,70,210,140,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1
+SI,Cylinder deactivation,3,6,4.5,112,252,182,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,1,1,0,1,1,0,0,1,0,1,1,0,0,1,0
+SI,Engine accessory improvement,1,2,1.5,84,112,98,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+SI,Engine supercharging and downsizing,5,7,6,350,560,455,0,0,0,0,0,0,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,1,1
+Transmission,Five-speed automatic transmission,2,3,2.5,70,154,112,1,0,0,1,0,0,1,1,0,1,1,0,1,0,0,1,1,0,1,1,1,1,1,1,1,1,0,1,1,1
+Transmission,Continous variable transmission,4,8,6,140,350,245,0,1,1,0,1,1,0,0,1,0,0,1,0,1,1,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+Transmission,Automatic transmission w/ aggressive shift logic,1,3,2,0,70,35,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,1,0,1,0,0,1,0,0,1,1,0
+Transmission,Six-speed automatic transmission,1,2,1.5,140,280,210,0,0,0,0,0,0,0,1,0,1,1,0,0,0,0,0,1,0,0,1,1,0,1,1,0,1,0,0,1,1
+Design,Aero drag reduction,1,2,1.5,0,140,70,0,0,0,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1
+Design,improved rolling resistance,1,1.5,1.25,14,56,35,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+Design,Safety weight increase,-3,-4,-3.5,0,0,0,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1
+SI,Intake valve throttling,3,6,4.5,210,420,315,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0
+SI,Camless valve actuation,5,10,7.5,280,560,420,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1
+SI,variable compression ratio,2,6,4,210,490,350,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1,0,0,1
+Transmission,Automatic shift/manual transmission,3,5,4,70,280,175,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,1,0,1,1,0,1,0,0,0,1
+Transmission,Advanced cvts - high torque,0,2,1,350,840,595,0,0,0,0,0,0,0,0,1,0,0,1,0,0,0,0,0,1,0,0,0,0,0,0,0,0,1,0,0,0
+Accessories,42V electrical systems,1,2,1.5,70,280,175,0,0,1,0,0,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1
+Accessories,integrated starter/generator,4,7,5.5,210,350,280,0,0,1,0,0,1,0,0,1,0,0,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1
+Accessories,electric power steering,1.5,2.5,2,105,150,127.5,0,0,1,0,0,1,0,1,1,0,1,1,0,0,1,0,1,1,0,1,1,0,1,1,0,1,1,0,1,1
+Design,vehicle weight reduction (5%),3,4,3.5,210,350,280,0,0,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,1,0,0,1,0,0,0,0,0,0,0,0,0

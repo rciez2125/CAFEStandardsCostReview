@@ -1,4 +1,5 @@
 import numpy as np
+import pandas as pd
 from cafeScripts import importInflation, import1975, import1980, import1990, import1999, import2007, import2017, interpolateCoeffs, linearInterpCoeffs, inflationConversion, applyLearningRate, interpWalk, makeFigure, importMPGdata, plotCostCurves, makeCompFigure, makePaperFig, makeSIFig
 # this will ultimately run the cost analysis for the CAFE standards review
 
@@ -13,7 +14,7 @@ def runAnalysis(vehicleType):
 	mpgImprove = importMPGdata(vehicleType).clip(0)
 	#print(mpgImprove)
 	curves = np.ones((8,7,3))
-	baseYr = 2015
+	baseYr = 2018
 
 	data75 = import1975() # technology MY, currency yr, linear coeff, quad coeff, linear se, quad se] 
 	data80 = import1980() 
@@ -47,6 +48,7 @@ def runAnalysis(vehicleType):
 	else:
 		figName = 'cumulativeCostTrucks.png'
 	makeFigure(costOutUni, figName, vehicleType, baseYr)
+	print(costOutUni.shape)
 
 
 	numSims = 1000
@@ -72,5 +74,6 @@ def runAnalysis(vehicleType):
 	else:	
 		makeSIFig(inflatedCurves, costOutUni, vehicleType, baseYr)
 
-runAnalysis("cars")
+#runAnalysis("cars")
 runAnalysis("trucks")
+

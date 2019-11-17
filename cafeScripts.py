@@ -386,15 +386,15 @@ def import2007(vehicleType):
 	# avg
 	pi, cost = cleanData(data.PercentI4Avg.values, data.CostI4Avg.values*1.5, data.TechCat, data.Abbreviation)
 	data4Cyl_avg = bcCalcOrder(pi/100, baselineMPG[0], cost, mpgLim)
-	print(data4Cyl_avg.dMPG)
+	#print(data4Cyl_avg.dMPG)
 
 	pi, cost = cleanData(data.PercentV6Avg.values, data.CostV6Avg.values*1.5, data.TechCat, data.Abbreviation)
 	data6Cyl_avg = bcCalcOrder(pi/100, baselineMPG[1], cost, mpgLim)
-	print(data6Cyl_avg.dMPG)
+	#print(data6Cyl_avg.dMPG)
 
 	pi, cost = cleanData(data.PercentV8Avg.values, data.CostV8Avg.values*1.5, data.TechCat, data.Abbreviation)
 	data8Cyl_avg = bcCalcOrder(pi/100, baselineMPG[2], cost, mpgLim)
-	print(data8Cyl_avg.dMPG)
+	#print(data8Cyl_avg.dMPG)
 
 	x1 = np.transpose(np.vstack((data4Cyl_avg.dMPG, data4Cyl_avg.dMPG2)))
 	x2 = np.transpose(np.vstack((data6Cyl_avg.dMPG, data6Cyl_avg.dMPG2)))
@@ -873,9 +873,16 @@ def applyLearningRate(mpgImprovementData, yearlyCoeffs):
 		yearlyCosts[n+1,4] = yearlyCosts[n,4]*(1-LR) + yearlyCosts[n+1,3]
 	return(yearlyCosts)
 
-def importCPIData():
-	cpiData = pd.read_csv("CPINewCarPrices1950_2019.csv").values
-	return(cpiData)
+def importCPIData(vehicleType):
+	cpiData = pd.read_csv("CPIDataAnnual.csv")
+	yrdata = cpiData['Year']
+	allvehicleData = cpiData['New Vehicles-Deflated'].values
+	if vehicleType == 'cars':
+		specificVehicleData = cpiData['Old Index_Cars_2018Baseline_deflated'].values
+	else: 
+		specificVehicleData = cpiData['Old Index_Trucks_2018Baseline_deflated'].values
+	#cpiData = pd.read_csv("CPINewCarPrices1950_2019.csv").values
+	return(yrdata, allvehicleData, specificVehicleData)
 
 def makeFigure(costOut, figName, vehicleType, baseYr):
 	plotData = np.ones((76,10))
@@ -912,11 +919,12 @@ def makeFigure(costOut, figName, vehicleType, baseYr):
 	plt.ylabel('Cumulative Cost ['+str(baseYr)+'$]')
 	plt.xlabel('Year')
 	if vehicleType == "cars":
-		cpiData = importCPIData()
+		cpiDatayr, cpiData1, cpiData2 = importCPIData(vehicleType)
 		plt.title('Passenger Vehicles')
 		#plt.plot([1970, 2018], [1729, 1729], '-', color = [0.5, 0.5, 0.5])
 		#plt.text(1980, 1830, 'Previous 2018 estimate')
-		plt.plot(cpiData[:,0], cpiData[:,1], '--k')
+		plt.plot(cpiData1, cpiData1, '--k')
+		#plt.plot(cpiData2[:,0], cpiData2[:,1], '--b')
 		#print('cars', plotData[43, :])
 	else:
 		plt.title('Light Trucks')
@@ -1066,22 +1074,25 @@ def makePaperFig(curves, costOut, vehicleType, baseYr):
 		else: 
 			plt.text(deltaMPG[-1,n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8)
 	ax1.tick_params(axis='both', which='major', labelsize=8)
-	plt.ylabel('Increase in Retail Price Equivalent [2015$]', FontSize=8)
-	plt.text(42, 8750, 'a', FontSize=8)
+	plt.ylabel('Increase in Retail Price Equivalent ['+str(baseYr)+'$]', FontSize=8)
+	plt.text(42, 9500, 'a', FontSize=8)
 	plt.xlabel('MPG Improvement from Base Year', FontSize=8)
 	plt.xlim(0,45)
-	plt.ylim(0, 9000)
+	plt.ylim(0, 10000)
 	
 	doublex = 0.46
 	xlen = 0.5
 	ax2 = fig.add_subplot(3,3,2) # plot the cpi data
 	ax2.set_position([doublex, 0.7, xlen, 0.25])
-	cpiData = importCPIData()
-	ax2.plot(cpiData[:,0], cpiData[:,1], '-', color = [0.2, 0.2, 0.2]) #change this 
+	cpiDatayr, cpiData1, cpiData2= importCPIData(vehicleType)
+	ax2.plot(cpiDatayr, cpiData1, ':', color = [0, 0.5, 0.5]) #change this 
+	ax2.plot(cpiDatayr, cpiData2, '-', color = [0.3, 0.3, 0.3]) #change colors 
+	ax2.text(cpiDatayr[10], cpiData1[10]+5, 'New Vehicles', FontSize=8, color = [0, 0.5, 0.5])
+	ax2.text(cpiDatayr[57], cpiData2[57]+15, 'Car Transactions', FontSize=8, color = [0.3, 0.3, 0.3], HorizontalAlignment = 'center')
 	plt.ylabel('CPI', FontSize=8)
-	plt.ylim([0, 350])
+	plt.ylim([0, 150])
 	plt.xlim(1950,2018)
-	ax2.text(2013, 350*0.85, 'b', FontSize=8)
+	ax2.text(2013, 150*0.85, 'b', FontSize=8)
 	ax2.tick_params(axis='both', which='major', labelsize=8)
 
 	ax3 = fig.add_subplot(3,3,8) # plot the cumulative cost data
@@ -1106,6 +1117,7 @@ def makePaperFig(curves, costOut, vehicleType, baseYr):
 	plt.xlabel('Year', FontSize=8)
 	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
 
+	print('cars', plotData[32, :])
 	print('cars', plotData[43, :])
 	
 	plt.savefig('Figure4.png', dpi = 300)
@@ -1130,16 +1142,31 @@ def makeSIFig(curves, costOut, vehicleType, baseYr):
 			plt.text(deltaMPG[-1,n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8)
 	ax1.tick_params(axis='both', which='major', labelsize=8)
 	plt.ylabel('Increase in Retail Price Equivalent [2015$]', FontSize=8)
-	plt.text(42, 9750, 'a', FontSize=8)
+	plt.text(42, 10500, 'a', FontSize=8)
 	plt.xlabel('MPG Improvement from Base Year', FontSize=8)
 	plt.xlim(0,45)
-	plt.ylim(0, 10000)
+	plt.ylim(0, 11000)
 	
 	doublex = 0.46
 	xlen = 0.5
+	ax2 = fig.add_subplot(3,3,2) # plot the cpi data
+	ax2.set_position([doublex, 0.7, xlen, 0.25])
+	cpiDatayr, cpiData1, cpiData2= importCPIData(vehicleType)
+	ax2.plot(cpiDatayr, cpiData1, ':', color = [0, 0.5, 0.5]) #change this 
+	ax2.plot(cpiDatayr, cpiData2, '-', color = [0.3, 0.3, 0.3]) #change colors 
+	ax2.text(cpiDatayr[10], cpiData1[10]+5, 'New Vehicles', FontSize=8, color = [0, 0.5, 0.5])
+	ax2.text(cpiDatayr[57], cpiData2[57]+15, 'Truck Transactions', FontSize=8, color = [0.3, 0.3, 0.3], HorizontalAlignment='center')
+	plt.ylabel('CPI', FontSize=8)
+	plt.ylim([0, 150])
+	plt.xlim(1950,2018)
+	ax2.text(2013, 150*0.85, 'b', FontSize=8)
+	ax2.tick_params(axis='both', which='major', labelsize=8)
 
 	ax3 = fig.add_subplot(3,3,8) # plot the cumulative cost data
-	ax3.set_position([doublex, 0.15, xlen, 0.8])
+	ax3.set_position([doublex, 0.15, xlen, 0.45])
+
+	#ax3 = fig.add_subplot(3,3,8) # plot the cumulative cost data
+	#ax3.set_position([doublex, 0.15, xlen, 0.8])
 	ax3.tick_params(axis='both', which='major', labelsize=8)
 
 	ax3.plot(plotData[:,0], plotData[:,1], '-', color = colors[0])
@@ -1155,11 +1182,12 @@ def makeSIFig(curves, costOut, vehicleType, baseYr):
 	ax3.fill_between(plotData[:,0], plotData[:,8], plotData[:,9], facecolor = colors[2], alpha = 0.5)
 
 	plt.xlim(1950,2018)
-	plt.ylim(0, 5333)
+	plt.ylim(0, 3000)
 	plt.ylabel('Cumulative Cost ['+str(baseYr)+'$]', FontSize=8)
 	plt.xlabel('Year', FontSize=8)
-	ax3.text(2013, 5333*0.9, 'b', FontSize=8)
+	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
 
+	print('trucks', plotData[32, :])
 	print('trucks', plotData[43, :])
 	
 	plt.savefig('TruckCumulativeCosts.png', dpi = 300)

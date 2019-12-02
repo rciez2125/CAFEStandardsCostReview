@@ -26,7 +26,7 @@ def makeFigVMTFuelEconGasPrices():
 	ax1.plot(data1.Year, data1.VMTMilMiles/1000, '-', color = c_vmt)
 	ax1.set_position([0.1, 0.15, 0.34, 0.8])
 	ax1.tick_params(axis='both', which='major', labelsize=8)
-	plt.ylim(0,3500)
+	plt.ylim(0,3300)
 	plt.text(1998, data1.VMTMilMiles.values[-20]/1000+380, 'Vehicle Travel', FontSize = 7, color = c_vmt)
 	plt.xlim(1965, 2018)
 	plt.ylabel('Vehicle Miles [billions]', FontSize = 8)
@@ -111,7 +111,7 @@ def makeReboundFig():
 
 	ax1.plot(data1.Year, data1.VMTMilMiles/1000, '-', color = c_vmt)
 	ax1.plot(data1.Year, data1.ReboundVMTMilMiles/1000, '--', color = [0.5, 0.5, 0.5])
-	plt.ylim(0,3500)
+	plt.ylim(0,3300)
 	ax1.tick_params(axis='both', which='major', labelsize=8)
 	plt.xlim(1965, 2018)
 	plt.text(1998, data1.VMTMilMiles.values[-20]/1000+380, 'Vehicle Travel', FontSize = 7, color = c_vmt)

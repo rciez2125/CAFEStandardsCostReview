@@ -144,13 +144,19 @@ def makeAFigure():
 		plt.text(2004.5, y_epa, 'USEPA', horizontalalignment='right', verticalalignment = 'center', fontsize = fs + 2, color = epa)
 	addEPADates()
 
-	preca_line = plt.Rectangle((2007, y_ca-lineH/2), 2009-2007, lineH, color = ca, linewidth = 0, alpha = 0.5)
-	#ca_line = plt.Rectangle((2005, y_ca-lineH/2), x_merge-2005-0.5, lineH, color = ca, linewidth = 0, alpha = 1)
+	def addCADates():
+		plt.plot(2002, y_ca, '.k')
+		plt.plot([2002, 2002], [y_ca, y_ca+tickH], '-k')
+		plt.text(2000, y_ca+tickH+0.25, '2002: Pavley Bill\nauthorizes vehicle\nGHG standards', horizontalalignment = 'left', verticalalignment = 'bottom', fontsize = fs)
+	addCADates() 
+
+	preca_line = plt.Rectangle((1999, y_ca-lineH/2), 2002-1999, lineH, color = ca, linewidth = 0, alpha = 0.5)
+	ca_line = plt.Rectangle((2002, y_ca-lineH/2), 2009-2002, lineH, color = ca, linewidth = 0, alpha = 1)
 	mergedca_line = plt.Rectangle((x_merge+0.5, y_merged+lineH/2), 2026.5-x_merge-0.5, lineH, color = ca, linewidth = 0, alpha = 1)
 	caW1 = mpatches.Wedge((x_merge, y_ca-lineH/2), lineH, 0, 90, color = ca, linewidth = 0)
 	caW2 = mpatches.Wedge((x_merge+lineH, y_merged + 3*lineH/2), lineH, 180, 270, color = ca, linewidth = 0)
 	ca_connector = plt.Rectangle((x_merge, y_merged+3*lineH/2), lineH, y_ca-y_merged-2*lineH, color = ca, linewidth=0)
-	plt.text(2006.5, y_ca, 'CARB', horizontalalignment='right', verticalalignment = 'center', color = ca, fontsize = fs+2)
+	plt.text(1998.5, y_ca, 'CARB', horizontalalignment='right', verticalalignment = 'center', color = ca, fontsize = fs+2)
 	#plt.text(1999.5, y_ca+3*lineH/2, 'Anything in CA before they got their waiver in 2009 we should mention?', fontsize=fs, horizontalalignment='right')
 
 	def addMergedDates():
@@ -164,10 +170,9 @@ def makeAFigure():
 		#plt.text(2018, y_merged + 7.25*lineH, 'August 2018 Trump\nAdmin. Proposed\nRollback, fix 2020\nstandards through 2026', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')
 		plt.text(2018, y_merged + 18.25*lineH, 'August 2018: Trump\nAdmin. Proposed\nRollback', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')
 
-
-		plt.plot((2009, 2009), (-7, 9), '-k')
+		plt.plot((2009, 2009), (-7, 10), '-k')
 		#plt.text(2008.5, 9.25+tickH, '2009 Obama Admin. National Program for\nharmonized standards between NHTSA, USEPA,\nCARB, 13 automakers', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')#, rotation = 90)
-		plt.text(2008.5, 9.25, '2009: Obama Admin. National Program', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')#, rotation = 90)
+		plt.text(2008.5, 10.25, '2009: Obama Admin. National Program', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')#, rotation = 90)
 	addMergedDates()
 
 	def addMPGBars():
@@ -184,6 +189,9 @@ def makeAFigure():
 			else:
 				addMPGdata(carAll.Year.iloc[n], carAll.CarStd.iloc[n]/5, 0, y_merged-lineH/2, 1, 'car', 1)
 			#ax1.add_patch(r)
+
+		plt.text(1985, y_nhtsa+2.5, 'Passenger Car MPG Standard', fontsize = fs - 2, color = carcolor)
+		plt.text(1986, y_nhtsa+1.2, 'Light Truck MPG Standard', fontsize = fs-2, color = truckcolor)
 
 		for n in range(len(carObama.Year)):
 			if n<len(carObama.Year)-1:
@@ -257,7 +265,7 @@ def makeAFigure():
 	ax1.add_patch(epa_connector)
 
 	ax1.add_patch(preca_line)
-	#ax1.add_patch(ca_line)
+	ax1.add_patch(ca_line)
 	ax1.add_patch(mergedca_line)
 	ax1.add_patch(caW1)
 	ax1.add_patch(caW2)

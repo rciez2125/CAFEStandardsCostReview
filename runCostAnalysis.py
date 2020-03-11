@@ -27,6 +27,7 @@ def runAnalysis(vehicleType):
 	curves[5,:,:] = np.transpose(import2017(vehicleType, 2017))
 	curves[6,:,:] = np.transpose(import2017(vehicleType, 2020))
 	curves[7,:,:] = np.transpose(import2017(vehicleType, 2025))
+	print('2025 curves', curves[7,:,:])
 	inflatedCurves = inflationConversion(curves, baseYr)
 
 	plotCostCurves(inflatedCurves, vehicleType, baseYr, 0, 1, 0, 1)
@@ -74,6 +75,6 @@ def runAnalysis(vehicleType):
 	else:	
 		makeSIFig(inflatedCurves, costOutUni, vehicleType, baseYr)
 
-#runAnalysis("cars")
-runAnalysis("trucks")
+runAnalysis("cars")
+#runAnalysis("trucks")
 

@@ -27,15 +27,16 @@ def runAnalysis(vehicleType):
 	curves[5,:,:] = np.transpose(import2017(vehicleType, 2017))
 	curves[6,:,:] = np.transpose(import2017(vehicleType, 2020))
 	curves[7,:,:] = np.transpose(import2017(vehicleType, 2025))
-	print('2025 curves', curves[7,:,:])
+	#print('2025 curves', curves[7,:,:])
 	inflatedCurves = inflationConversion(curves, baseYr)
+	print(inflatedCurves)
 
 	plotCostCurves(inflatedCurves, vehicleType, baseYr, 0, 1, 0, 1)
 	plotCostCurves(inflatedCurves, vehicleType, baseYr, 1, 0, 0, 1)
 	plotCostCurves(inflatedCurves, vehicleType, baseYr, 0, 0, 1, 1)
 	plotCostCurves(inflatedCurves, vehicleType, baseYr, 1, 1, 1, 0)
 	
-	numSims = 1000
+	numSims = 10
 	costOutUni = np.zeros((76,5,numSims,3))
 	for s in range(numSims):
 		yearlyCoeffs_avg = interpWalk(inflatedCurves[:,:,1])
@@ -50,6 +51,9 @@ def runAnalysis(vehicleType):
 		figName = 'cumulativeCostTrucks.png'
 	makeFigure(costOutUni, figName, vehicleType, baseYr)
 	print(costOutUni.shape)
+	print(costOutUni[:,:,0,0])
+	#d = pd.DataFrame(costOutUni)
+	#d.to_csv('uniformOut.csv')
 
 
 	numSims = 1000

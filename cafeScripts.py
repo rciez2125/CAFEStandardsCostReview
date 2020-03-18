@@ -795,6 +795,7 @@ def linearInterpCoeffs(curveCoeffs):
 			deltat = [yearlyCoeffs[n+1,0]-curveCoeffs[5,0], curveCoeffs[6,0]-yearlyCoeffs[n+1,0], curveCoeffs[6,0]-curveCoeffs[5,0]]
 			yearlyCoeffs[n+1,1] = drawnCoeffs[5,0]*deltat[1]/deltat[2] + drawnCoeffs[6,0]*deltat[0]/deltat[2]
 			yearlyCoeffs[n+1,2] = drawnCoeffs[5,1]*deltat[1]/deltat[2] + drawnCoeffs[6,1]*deltat[0]/deltat[2]
+	#print(yearlyCoeffs)
 	return yearlyCoeffs
 
 def interpWalk(curveCoeffs):

@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 from scipy import stats
 
 def importInflation(): 
-	data = pd.read_csv("inflationData.csv").values
+	data = pd.read_csv("Inputs/inflationData.csv").values
 	return(data)
 
 def importMPGdata(vehicleType):
-	data = pd.read_csv("mpgImprovementData.csv")
+	data = pd.read_csv("Inputs/mpgImprovementData.csv")
 	if vehicleType=="cars":
 		return(data.PassengerCars.values)
 	else:
@@ -31,7 +31,7 @@ def import1975():
 	return(out)
 
 def import1980():
-	data = pd.read_csv("1980.csv")
+	data = pd.read_csv("Inputs/1980.csv")
 	endog = np.transpose(np.vstack((data.cumulativeMPG.values, data.cMPG2.values)))
 	exog = data.cumulativeCost
 	mod = sm.OLS(exog, endog)
@@ -158,7 +158,7 @@ def avg1990(outData):
 
 def import1990(vehicleType): 
 	# return data for 1990 estimates
-	data = pd.read_csv("1992Data.csv")
+	data = pd.read_csv("Inputs/1992Data.csv")
 	outData = np.zeros((3,7))
 	outData[:,0] = 1990
 	outData[:,1] = 1990
@@ -217,7 +217,7 @@ def import1990(vehicleType):
 
 def import1999(vehicleType): 
 
-	data = pd.read_csv("1999.csv")
+	data = pd.read_csv("Inputs/1999.csv")
 	
 	outData = np.zeros((3,7))
 	outData[:,0] = np.ones(3)*1999# confirmed
@@ -361,7 +361,7 @@ def import2007(vehicleType):
 	else: 
 		sales = [607, 3238, 2430] # from epa spreadsheet
 		baselineMPG = [27.52, 22.69, 19.38] # epa combined
-	data = pd.read_csv("2011Data.csv")
+	data = pd.read_csv("Inputs/2011Data.csv")
 
 	mpgLim = 100
 
@@ -461,7 +461,7 @@ def import2017(vehicleType, year):
 		sales = [2041, 3594, 1504] #4,6,8 cylinders
 		baselineMPG = [33.41, 25.60, 22.31] #[32, 27.5, 19.9] #[33.3, 25.6, 22.3] #[32, 27.5, 19.9]  # #
 	# prices in 2010 data? 
-	data = pd.read_csv("201720202025.csv")
+	data = pd.read_csv("Inputs/201720202025.csv")
 	outData = np.zeros((3,7))
 	outData[:,1] = np.ones(3)*2010
 
@@ -801,45 +801,75 @@ def linearInterpCoeffs(curveCoeffs):
 def interpWalk(curveCoeffs):
 	yearlyCoeffs = np.ones((76, 3))
 	yearlyCoeffs[:,0] = 1975 + np.linspace(0,75,76)
-	yearlyCoeffs[0,1] = np.random.normal(curveCoeffs[0,2], curveCoeffs[0,4],1) 
-	yearlyCoeffs[0,2] = np.random.normal(curveCoeffs[0,3], curveCoeffs[0,5],1)
+	# data for 1975 (first year)
+	yearlyCoeffs[0,1] = np.random.normal(curveCoeffs[0,2], curveCoeffs[0,4],1) # linear
+	yearlyCoeffs[0,2] = np.random.normal(curveCoeffs[0,3], curveCoeffs[0,5],1) # quadratic
 
-	drawnCoeffs = np.ones((7,2))
-	for n in range(7):
-		drawnCoeffs[n,0] = np.random.normal(curveCoeffs[n,2], curveCoeffs[n,4],1)
-		drawnCoeffs[n,1] = np.random.normal(curveCoeffs[n,3], curveCoeffs[n,5],1)
+	drawnCoeffs = np.ones((8,2))
+	for n in range(8):
+		drawnCoeffs[n,0] = np.random.normal(curveCoeffs[n,2], curveCoeffs[n,4],1) # linear 
+		drawnCoeffs[n,1] = np.random.normal(curveCoeffs[n,3], curveCoeffs[n,5],1) # quadratic 
+
+	print(drawnCoeffs)
 
 	for n in range(len(yearlyCoeffs)-1):
-		if yearlyCoeffs[n+1,0] >= curveCoeffs[6,0]:
-			yearlyCoeffs[n+1,1:3] = drawnCoeffs[6,:]
+
+		if yearlyCoeffs[n+1,0] >= curveCoeffs[7,0]:
+			yearlyCoeffs[n+1,1:3] = drawnCoeffs[7,:]
+		
+		# yrs 1975 - 1980
 		elif yearlyCoeffs[n+1,0]< curveCoeffs[1,0]:	
 			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[1,0]), max(yearlyCoeffs[n,1], drawnCoeffs[1,0]),1)
 			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[1,1]), max(yearlyCoeffs[n,2], drawnCoeffs[1,1]),1)
+			#print(yearlyCoeffs[n+1,:])
 		elif yearlyCoeffs[n+1,0]==curveCoeffs[1,0]:
 			yearlyCoeffs[n+1,1:3] = drawnCoeffs[1,:]
+
+
+		# yrs 1980 - 1990
 		elif yearlyCoeffs[n+1,0]<curveCoeffs[2,0]:
 			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[2,0]), max(yearlyCoeffs[n,1], drawnCoeffs[2,0]),1)
 			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[2,1]), max(yearlyCoeffs[n,2], drawnCoeffs[2,1]),1)
+			#print(yearlyCoeffs[n+1,:])
+			#print(yearlyCoeffs[n,:])
+			#print(drawnCoeffs[2,:])
+		
 		elif yearlyCoeffs[n+1,0]==curveCoeffs[2,0]:
 			yearlyCoeffs[n+1,1:3] = drawnCoeffs[2,:]
+
+		
+		# yrs 1990 - 1999
 		elif yearlyCoeffs[n+1,0]<curveCoeffs[3,0]:
 			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[3,0]), max(yearlyCoeffs[n,1], drawnCoeffs[3,0]),1)
 			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[3,1]), max(yearlyCoeffs[n,2], drawnCoeffs[3,1]),1)
 		elif yearlyCoeffs[n+1,0]==curveCoeffs[3,0]:
 			yearlyCoeffs[n+1,1:3] = drawnCoeffs[3,:]
+		
+		# yrs 1999 - 
 		elif yearlyCoeffs[n+1,0]<curveCoeffs[4,0]:
 			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[4,0]), max(yearlyCoeffs[n,1], drawnCoeffs[4,0]),1)
 			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[4,1]), max(yearlyCoeffs[n,2], drawnCoeffs[4,1]),1)
 		elif yearlyCoeffs[n+1,0]==curveCoeffs[4,0]:
 			yearlyCoeffs[n+1,1:3] = drawnCoeffs[4,:]
+		
 		elif yearlyCoeffs[n+1,0]<curveCoeffs[5,0]:
 			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[5,0]), max(yearlyCoeffs[n,1], drawnCoeffs[5,0]),1)
 			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[5,1]), max(yearlyCoeffs[n,2], drawnCoeffs[5,1]),1)
 		elif yearlyCoeffs[n+1,0]==curveCoeffs[5,0]:
 			yearlyCoeffs[n+1,1:3] = drawnCoeffs[5,:]
-		else:
+		
+		elif yearlyCoeffs[n+1,0]<curveCoeffs[6,0]:
 			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[6,0]), max(yearlyCoeffs[n,1], drawnCoeffs[6,0]),1)
 			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[6,1]), max(yearlyCoeffs[n,2], drawnCoeffs[6,1]),1)
+		elif yearlyCoeffs[n+1,0]==curveCoeffs[6,0]:
+			yearlyCoeffs[n+1,1:3] = drawnCoeffs[6,:]
+		
+		elif yearlyCoeffs[n+1,0]<curveCoeffs[7,0]:
+			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[7,0]), max(yearlyCoeffs[n,1], drawnCoeffs[7,0]),1)
+			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[7,1]), max(yearlyCoeffs[n,2], drawnCoeffs[7,1]),1)
+		else:
+			yearlyCoeffs[n+1,1] = np.random.uniform(min(yearlyCoeffs[n,1], drawnCoeffs[7,0]), max(yearlyCoeffs[n,1], drawnCoeffs[7,0]),1)
+			yearlyCoeffs[n+1,2] = np.random.uniform(min(yearlyCoeffs[n,2], drawnCoeffs[7,1]), max(yearlyCoeffs[n,2], drawnCoeffs[7,1]),1)
 	return yearlyCoeffs
 
 def applyLearningRate(mpgImprovementData, yearlyCoeffs):
@@ -877,7 +907,7 @@ def applyLearningRate(mpgImprovementData, yearlyCoeffs):
 	return(yearlyCosts)
 
 def importCPIData(vehicleType):
-	cpiData = pd.read_csv("CPIDataAnnual.csv")
+	cpiData = pd.read_csv("Inputs/CPIDataAnnual.csv")
 	yrdata = cpiData['Year']
 	allvehicleData = cpiData['New Vehicles-Deflated'].values
 	if vehicleType == 'cars':
@@ -1011,9 +1041,9 @@ def plotCostCurves(curves, vehicleType, baseYr, low, avg, high, prev):
 	labels = ('1975*', '1980', '1990', '1999', '2007', '2017', '2020', '2025')
 
 	if vehicleType == "cars":
-		compData = pd.read_csv('passCarComp.csv').values
+		compData = pd.read_csv('Inputs/passCarComp.csv').values
 	else:
-		compData = pd.read_csv('lightTruckComp.csv').values 
+		compData = pd.read_csv('Inputs/lightTruckComp.csv').values 
 
 	legInfo = []
 	for n in range(curves.shape[0]):
@@ -1024,26 +1054,26 @@ def plotCostCurves(curves, vehicleType, baseYr, low, avg, high, prev):
 		if avg == 1: 
 			plt.plot(deltaMPG, curves[n,2,1]*deltaMPG + curves[n,3,1]*deltaMPG*deltaMPG)
 			legInfo.append('New Avg')
-			figName = 'curves'+vehicleType+'avg.png'
+			figName = 'Figures/curves'+vehicleType+'avg.png'
 			if prev == 1:
 				plt.plot(deltaMPG, np.transpose(compData[n]), '--')
 				legInfo.append('Prev Avg')
 		if low == 1:
 			plt.plot(deltaMPG, curves[n,2,0]*deltaMPG + curves[n,3,0]*deltaMPG*deltaMPG)
 			legInfo.append('New Low')
-			figName = 'curves'+vehicleType+'low.png'
+			figName = 'Figures/curves'+vehicleType+'low.png'
 			if prev == 1: 
 				plt.plot(deltaMPG, np.transpose(compData[n+8]), '--')
 				legInfo.append('Prev Low')
 		if high == 1:
 			plt.plot(deltaMPG, curves[n,2,2]*deltaMPG + curves[n,3,2]*deltaMPG*deltaMPG)
 			legInfo.append('New High')
-			figName = 'curves'+vehicleType+'high.png'
+			figName = 'Figures/curves'+vehicleType+'high.png'
 			if prev == 1: 
 				plt.plot(deltaMPG, np.transpose(compData[n+16]), '--')
 				legInfo.append('Prev High')
 		if avg == 1 and low == 1 and high == 1:
-			figName = 'curves'+vehicleType+'all.png'
+			figName = 'Figures/curves'+vehicleType+'all.png'
 		else:
 			plt.legend(legInfo)
 
@@ -1123,7 +1153,7 @@ def makePaperFig(curves, costOut, vehicleType, baseYr):
 	print('cars', plotData[32, :])
 	print('cars', plotData[43, :])
 	
-	plt.savefig('Figure4.png', dpi = 300)
+	plt.savefig('Figures/Figure4.png', dpi = 300)
 
 def makeSIFig(curves, costOut, vehicleType, baseYr):
 	figName = ('placeholder.png')
@@ -1193,4 +1223,4 @@ def makeSIFig(curves, costOut, vehicleType, baseYr):
 	print('trucks', plotData[32, :])
 	print('trucks', plotData[43, :])
 	
-	plt.savefig('TruckCumulativeCosts.png', dpi = 300)
+	plt.savefig('Figures/TruckCumulativeCosts.png', dpi = 300)

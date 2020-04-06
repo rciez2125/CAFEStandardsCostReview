@@ -1,4 +1,6 @@
 import numpy as np 
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import pandas as pd 
 
@@ -144,6 +146,7 @@ def makeFatalitiesFig():
 	pos1 = [0.1, 0.15, 0.44, 0.8]
 	pos2 = [0.69, 0.15, 0.24, 0.8]
 	plt.figure(figsize = (7, 3.33))
+	plt.fontsize = 8
 	ax1 = plt.subplot(1,2,1)
 	ax1.set_position(pos1)
 	ax1.plot(data.Year.values, data.TotalFatalities.values, '-', color = [0.2, 0.2, 0.2])
@@ -151,7 +154,7 @@ def makeFatalitiesFig():
 	ax1.tick_params(axis='both', which='major', labelsize=8)
 	plt.text(1990, 30000, 'Total Fatalities', FontSize = 8, color = [0.2, 0.2, 0.2])
 	plt.ylabel('Total Annual Fatalities', FontSize=8)
-	plt.xlabel('Year', FontSize = 8)
+	plt.xlabel('Year', FontSize = 7)
 	plt.xlim(1920, 2018)
 	plt.ylim(0, 60000)
 
@@ -194,8 +197,66 @@ def makeFatalitiesFig():
 	plt.savefig('MPGFatalityRate.png', dpi = 300)
 	plt.clf()
 
+def makeMarginalBenefitCostFig():
+	c = pd.read_excel('Inputs/MarginalCostvWTP31Mar2020.xlsx', sheet_name = 'Cars', skiprows = 2)
+	print(c.columns)
+	c = c.drop([0])
+	c = c.reset_index(drop= True)
+	c = c.rename(columns={"Unnamed: 0": "Year"})
+	t = pd.read_excel('Inputs/MarginalCostvWTP31Mar2020.xlsx', sheet_name = 'Trucks', skiprows = 2)
+	t = t.drop([0])
+	t = t.reset_index(drop= True)
+	t = t.rename(columns={"Unnamed: 0": "Year"})
+
+	pos1 = [0.09, 0.13, 0.4, 0.8]
+	pos2 = [0.57, 0.13, 0.4, 0.8]
+	plt.figure(figsize = (7, 3.33))
+	plt.fontsize = 8
+	
+	ax1 = plt.subplot(1,2,1)
+	ax1.set_position(pos1)
+	ax1.plot(c.Year, c['Marginal WTP'], '-', color = 'g') # fix colors
+	ax1.plot(c.Year, c['MC Mean'], 'Dk', ms = 2)
+	ax1.plot(c.Year, c['Moving Average'], '--k')
+	ax1.fill_between(c.Year, c['MA High'], c['MA Low'], facecolor = 'k', alpha = 0.3)
+	plt.xlim(1975, 2018)
+	plt.ylim(-200, 1200)
+	plt.ylabel('Dollars per 1  MPG Increase', fontsize = 8)
+	plt.xticks(fontsize= 8)
+	plt.yticks(fontsize= 8)
+	plt.xlabel('Year', fontsize = 8)
+	plt.text(2016, 1120, 'a', fontsize = 8)
+	plt.legend(('Marginal Value', 'Mean MC', 'Mean MC Moving Average', 'MC Moving Avg Range'), fontsize = 6, loc= 'upper center')
+	plt.title('Passenger Cars', fontsize = 8)
+
+	ax2 = plt.subplot(1,2,2)
+	ax2.set_position(pos2)
+	ax2.plot(t.Year, t['Marginal WTP'], '-', color = 'g') # fix colors
+	ax2.plot(t.Year, t['MC Mean'], 'Dk', ms = 2)
+	ax2.plot(t.Year, t['Moving Average'], '--k')
+	ax2.fill_between(t.Year, t['M.A. High'], t['M.A. Low'], facecolor = 'k', alpha = 0.3)
+	plt.xlim(1975, 2018)
+	plt.ylim(-200, 1200)
+	plt.xticks(fontsize= 8)
+	plt.yticks(fontsize= 8)
+	plt.text(2016, 1120, 'b', fontsize = 8)
+	plt.legend(('Marginal Value', 'Mean MC', 'Mean MC Moving Average', 'MC Moving Avg Range'), fontsize = 6)
+	plt.xlabel('Year', fontsize = 8)
+	plt.title('Light Trucks', fontsize = 8)
+
+	plt.savefig('Figures/MarginalBenefits.png', dpi = 300)
+	plt.clf()
+
+
+
+
+
+
+
+
 # make the figures
-makeFigVMTFuelEconGasPrices()
-makeReboundFig()
-makeOnRoadMPGfig()
-makeFatalitiesFig()
+#makeFigVMTFuelEconGasPrices()
+#makeReboundFig()
+#makeOnRoadMPGfig()
+#makeFatalitiesFig()
+makeMarginalBenefitCostFig()

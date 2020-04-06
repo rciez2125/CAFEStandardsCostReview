@@ -1,4 +1,6 @@
 import numpy as np 
+import matplotlib
+matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 from matplotlib.patches import Wedge
 from matplotlib.collections import PatchCollection
@@ -12,11 +14,10 @@ epa = [0, 0.5, 0]
 ca = [0.9, 0.8, 0.15] # change from blue to something else 
 
 
-
 carcolor = [1, 0, 0] # aiming for a gold color --> this was read on plot 1
 truckcolor = [0, 0, 1] #something purpleish  --> this was blue on plot 1 
 
-data = pd.read_csv("NHTSACAFEData14Aug2019.csv")
+data = pd.read_csv("Inputs/NHTSACAFEData14Aug2019.csv")
 car = data[data.Year > 1977]
 truck = data[data.Year > 1978]
 
@@ -55,7 +56,7 @@ def makeAFigure():
 
 	y_merged = y_nhtsa + lineH#y_epa 
 
-	data = pd.read_csv("NHTSACAFEData14Aug2019.csv")
+	data = pd.read_csv("Inputs/NHTSACAFEData14Aug2019.csv")
 	car = data[data.Year > 1977]
 	#car.CarStd = car.CarStd-car.CarStd.iloc[0]
 	carNHTSA = car[car.Year<2009]
@@ -73,7 +74,9 @@ def makeAFigure():
 	
 	x = car.CarStd.iloc[0] # pulled data from david's spreadsheet
 	obama = [[2019, 41.4-x], [2020, 43.4-x], [2021, 45.2-x], [2022, 47.4-x], [2023, 49.7-x], [2024, 51.5-x], [2025, 54.8-x]]
-	t = np.ones(6,)*obama[1][1]
+	#t = np.ones(6,)*obama[1][1]
+	t = [43.6, 44.2, 44.9, 45.6, 46.3, 47]
+	t = t - x #47.7
 	yr = np.linspace(2020, 2025, 6)
 	carObama = pd.DataFrame(obama, columns = ['Year', 'CarStd']) 
 	carTrump = pd.DataFrame(t, columns = ['CarStd'])
@@ -82,7 +85,9 @@ def makeAFigure():
 	x = truck.LTStd.iloc[0]
 	obama = [[2019, 29.80-x], [2020, 30.80-x], [2021, 32.60-x], [2022, 33.90-x], [2023, 35.30-x], [2024, 37.50-x], [2025, 38.70-x]]
 	truckObama = pd.DataFrame(obama, columns = ['Year', 'LTStd']) 
-	t = np.ones(6,)*obama[1][1]
+	#t = np.ones(6,)*obama[1][1]
+	t = [31.1, 31.6, 32.1, 32.6, 33.1, 33.6] # 34.1
+	t = t-x
 	yr = np.linspace(2020, 2025, 6)
 	truckTrump = pd.DataFrame(t, columns = ['LTStd'])
 	truckTrump['Year'] = yr
@@ -165,10 +170,14 @@ def makeAFigure():
 		#plt.text(2011.5, y_merged-5.25*tickH, '2012 Obama Admin. Sets new standards\nfor 2017-2025, 54.5 mpg overall by 2025', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'top')
 		plt.text(2011.5, y_merged-3.25*tickH, '2012: New standards for 2017-2025,\n54.5 mpg overall by 2025', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'top')	
 
-		plt.plot(2018.67, y_merged, '.k')
-		plt.plot((2018.67, 2018.67), (y_merged, y_merged+18*lineH), '-k')
+		#plt.plot(2018.67, y_merged, '.k')
+		#plt.plot((2018.67, 2018.67), (y_merged, y_merged+18*lineH), '-k')
 		#plt.text(2018, y_merged + 7.25*lineH, 'August 2018 Trump\nAdmin. Proposed\nRollback, fix 2020\nstandards through 2026', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')
-		plt.text(2018, y_merged + 18.25*lineH, 'August 2018: Trump\nAdmin. Proposed\nRollback', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')
+		#plt.text(2018, y_merged + 18.25*lineH, 'August 2018: Trump\nAdmin. Proposed\nRollback', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')
+
+		plt.plot(2020.33, y_merged, '.k')
+		plt.plot((2020.33, 2020.33), (y_merged, y_merged+18*lineH), '-k')
+		plt.text(2020, y_merged+18.25*lineH, 'March 2020: Trump\nAdmin. Rollback\nReleased', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')
 
 		plt.plot((2009, 2009), (-7, 10), '-k')
 		#plt.text(2008.5, 9.25+tickH, '2009 Obama Admin. National Program for\nharmonized standards between NHTSA, USEPA,\nCARB, 13 automakers', fontsize = fs, horizontalalignment = 'left', verticalalignment = 'bottom')#, rotation = 90)
@@ -207,9 +216,9 @@ def makeAFigure():
 			#if n<len(carTrump.Year)-1:
 			#addMPGdata(carTrump.Year.iloc[n], carTrump.CarStd.iloc[n]/5, carTrump.CarStd.iloc[n+1]/5, y_merged+3*lineH/2, 0.4, 'car', 1)
 		#	else:
-			addMPGdata(carTrump.Year.iloc[n], carTrump.CarStd.iloc[n]/5, 0, y_merged-lineH/2, 0.4, 'car', 1)
+			addMPGdata(carTrump.Year.iloc[n], carTrump.CarStd.iloc[n]/5, 0, y_merged-lineH/2, 0.6, 'car', 1)
 			#ax1.add_patch(r)
-		plt.text(carTrump.Year.iloc[-3]+0.25, carTrump.CarStd.iloc[-3]/5+y_merged, 'Trump Proposal', fontsize = fs-2, color = carcolor)
+		plt.text(carTrump.Year.iloc[-3]+0.25, carTrump.CarStd.iloc[-3]/5+y_merged-1.5*lineH, 'Trump Rule', fontsize = fs-2, color = carcolor)
 
 		plt.plot((carObama.Year.iloc[0], carObama.Year.iloc[0]), (carObama.CarStd.iloc[0]/5+y_merged-lineH/2, carAll.CarStd.iloc[-1]/5+y_merged-lineH/2), color = carcolor, alpha = 1)
 
@@ -241,8 +250,8 @@ def makeAFigure():
 
 
 		for n in range(len(truckTrump.Year)):
-			addMPGdata(truckTrump.Year.iloc[n], truckTrump.LTStd.iloc[n]/5, 0, y_merged-lineH/2, 0.4, 'truck',1)
-		plt.text(truckTrump.Year.iloc[-3]+0.25, truckTrump.LTStd.iloc[-3]/5+y_merged-2*lineH, 'Trump Proposal', fontsize = fs-2, color = truckcolor)
+			addMPGdata(truckTrump.Year.iloc[n], truckTrump.LTStd.iloc[n]/5, 0, y_merged-lineH/2, 0.6, 'truck',1)
+		plt.text(truckTrump.Year.iloc[-3]+0.25, truckTrump.LTStd.iloc[-3]/5+y_merged-2*lineH, 'Trump Rule', fontsize = fs-2, color = truckcolor)
 			#ax1.add_patch(r)
 	addMPGBars()
 	

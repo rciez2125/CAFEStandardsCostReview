@@ -81,7 +81,7 @@ def makeFigVMTFuelEconGasPrices():
 
 # on road fuel economy
 def makeOnRoadMPGfig():
-	data = pd.read_csv("onRoadMPGData.csv")
+	data = pd.read_csv("Inputs/onRoadMPGData.csv")
 	plt.figure(figsize=(3.33,3.33))
 	ax1 = plt.subplot(1,1,1)
 	ax1.set_position([0.15, 0.15, 0.8, 0.8])
@@ -257,6 +257,6 @@ def makeMarginalBenefitCostFig():
 # make the figures
 #makeFigVMTFuelEconGasPrices()
 #makeReboundFig()
-#makeOnRoadMPGfig()
+makeOnRoadMPGfig()
 #makeFatalitiesFig()
-makeMarginalBenefitCostFig()
+#makeMarginalBenefitCostFig()

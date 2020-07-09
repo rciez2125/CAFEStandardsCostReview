@@ -17,8 +17,8 @@ c_gasPrice = [0.9, 0.8, 0]
 
 def makeFigVMTFuelEconGasPrices():
 	# load some data
-	data1 = pd.read_csv("MPGSavingswRebound28Aug2019.csv")
-	data2 = pd.read_csv("NHTSACAFEData14Aug2019.csv")
+	data1 = pd.read_csv("Inputs/MPGSavingswRebound28Aug2019.csv")
+	data2 = pd.read_csv("Inputs/NHTSACAFEData14Aug2019.csv")
 
 	# make a mutliplot figure
 	plt.figure(figsize=(7,4))
@@ -38,10 +38,12 @@ def makeFigVMTFuelEconGasPrices():
 	ax2 = ax1.twinx()
 	ax2.set_position([0.1, 0.15, 0.34, 0.8])
 	ax2.plot(data1.Year, data1.FuelUseMil/1000, '-', color=c_fuelConsumed)
-	ax2.tick_params(axis='both', which='major', labelsize=8)
+	ax2.tick_params(axis='both', which='major', labelsize=8, color = c_fuelConsumed, labelcolor=c_fuelConsumed)
+	ax2.spines['right'].set_color(c_fuelConsumed)
+
 	plt.ylim(0, 250)
 	plt.text(1993, data1.FuelUseMil.values[-25]/1000-10, 'Fuel Consumption', FontSize = 7, color = c_fuelConsumed)
-	plt.ylabel('Gallons [billions]', FontSize = 8)
+	plt.ylabel('Gallons [billions]', FontSize = 8, color = c_fuelConsumed)
 	plt.xlim(1965, 2018)
 	plt.text(2013, 240, 'a', FontSize = 8)
 	plt.xlabel('Years', FontSize = 8)
@@ -59,7 +61,7 @@ def makeFigVMTFuelEconGasPrices():
 	ax3.plot(data2.Year, data2.EPALT, ':+', color=c_mpgTruck)# change marker style 
 	#plt.text()
 	ax3.tick_params(axis='both', which='major', labelsize=8)
-	plt.xlim(1965, 2018)
+	plt.xlim(1970, 2018)
 	plt.ylabel('EPA Test Cycle Miles per Gallon', FontSize = 8)
 	plt.xlabel('Year', FontSize = 8)
 	plt.rc('legend',fontsize=8)
@@ -69,14 +71,15 @@ def makeFigVMTFuelEconGasPrices():
 	ax4.set_position([0.58, 0.15, 0.34, 0.8])
 	ax4.plot(data2.Year, data2.GasPrices, '-', color = c_gasPrice) #change this color 
 	plt.text(2000, 3.75, 'Gas Price', FontSize = 7, color = c_gasPrice)
-	ax4.tick_params(axis='both', which='major', labelsize=8)
+	ax4.tick_params(axis='both', which='major', labelsize=8, color = c_gasPrice, labelcolor = c_gasPrice)
+	ax4.spines['right'].set_color(c_gasPrice)
 	plt.ylim(0, 4)
-	plt.ylabel('Gas Prices [2018$/gallon]', FontSize = 8)
-	plt.xlim(1965, 2018)
+	plt.ylabel('Gas Prices [2018$/gallon]', FontSize = 8, color = c_gasPrice)
+	plt.xlim(1970, 2018)
 	plt.text(2013, 3.8, 'b', FontSize = 8)
 	plt.xlabel('Year', FontSize = 8)
 
-	plt.savefig('Figure1SideBySide.png', dpi = 300)
+	plt.savefig('Figures/Figure2SideBySide.png', dpi = 300)
 	plt.clf()
 
 # on road fuel economy
@@ -84,27 +87,35 @@ def makeOnRoadMPGfig():
 	data = pd.read_csv("Inputs/onRoadMPGData.csv")
 	plt.figure(figsize=(3.33,3.33))
 	ax1 = plt.subplot(1,1,1)
-	ax1.set_position([0.15, 0.15, 0.8, 0.8])
+	ax1.set_position([0.13, 0.15, 0.69, 0.8])
 
 	ax1.plot(data.ModelYear, data.EPA_Test, '-', color = c_mpgFleet)
 	ax1.plot(data.ModelYear, data.EPA_Adjusted, '-', color = [0.1, 0.55, 0.6]) #change
 	ax1.plot(data.ModelYear, data.FHWA_On_Road, '-', color = [0.62, 0.64, 0.11]) #change
 	# add labels 
-	plt.text(2005, 26, 'EPA Test', FontSize = 8, color = c_mpgFleet)
-	plt.text(2006, 19.5, 'EPA Adjusted', color = [0.1, 0.55, 0.6], FontSize = 8) #change
-	plt.text(2002, 22.5, 'FHWA On Road', color = [0.62, 0.64, 0.11], FontSize = 8) #change
+	plt.text(2004, 26, 'EPA Test', FontSize = 8, color = c_mpgFleet)
+	plt.text(2007, 20.5, 'EPA\nAdjusted', color = [0.1, 0.55, 0.6], FontSize = 8, verticalalignment = 'top') #change
+	plt.text(2000, 22.5, 'FHWA On Road', color = [0.62, 0.64, 0.11], FontSize = 8) #change
 	plt.ylim(0,30)
 	plt.xlim(1975, 2018)
 	ax1.tick_params(axis='both', which='major', labelsize=8)
 	plt.xlabel('Model Year', FontSize = 8)
 	plt.ylabel('Miles Per Gallon', FontSize = 8)
 
-	plt.savefig('Figure2.png', dpi = 300)
+	ax2 = ax1.twinx()
+	ax2.set_position([0.13, 0.15, 0.69, 0.8])
+	ax2.set_yticks([1, 1.11, 1.25, 1.43, 1.67, 2, 2.5, 3.33, 5, 10, 11.11, 12.5, 14.29, 16.67, 20, 25])# labels = (1, 0.5, 0.1, 0.05))
+	ax2.tick_params(axis = 'both', which='major', labelsize=8)#
+	ax2.set_yticklabels(['10$^0$', ' ', ' ', ' ', ' ', ' ', ' ', ' ', ' ', '10$^{-1}$', ' ',' ',' ',' ',' ',' '])
+	plt.ylim(0,30)
+	plt.ylabel('Gallons Per Mile', FontSize = 8)
+
+	plt.savefig('Figures/Figure3-2Axis.png', dpi = 300)
 	plt.clf()
 
 # miles of travel w/ rebound effect
 def makeReboundFig():
-	data1 = pd.read_csv("MPGSavingswRebound28Aug2019.csv")
+	data1 = pd.read_csv("Inputs/MPGSavingswRebound28Aug2019.csv")
 
 	# make a mutliplot figure
 	plt.figure(figsize=(3.33,3.33))
@@ -128,20 +139,21 @@ def makeReboundFig():
 	ax2.plot(data1.Year, data1.FuelSavingsMil/1000, '-.', color = c_fuelSaved)
 	plt.text(1993, data1.FuelUseMil.values[-25]/1000-10, 'Fuel Consumption', FontSize = 7, color = c_fuelConsumed)
 	plt.text(1993, data1.FuelSavingsMil.values[-25]/1000-10, 'Est. Fuel Savings', FontSize = 7, color = c_fuelSaved)
-	ax2.tick_params(axis='both', which='major', labelsize=8)
+	ax2.tick_params(axis='both', which='major', labelsize=8, color = c_fuelConsumed, labelcolor = c_fuelConsumed)
+	ax2.spines['right'].set_color(c_fuelConsumed)
 	plt.ylim(0, 250)
-	plt.ylabel('Gallons [billions]', FontSize = 8)
+	plt.ylabel('Gallons [billions]', FontSize = 8, color = c_fuelConsumed)
 	plt.xlabel('Year', FontSize = 8)
 	plt.xlim(1965, 2018)
 
-	plt.savefig('Figure5.png', dpi = 300)
+	plt.savefig('Figures/Figure4.png', dpi = 300)
 	plt.clf()
 
 # cost figure: code in cafeScripts, runCostAnalysis
 
 # motor vehicle and traffic fatalities (kick this to the SI?)
 def makeFatalitiesFig():
-	data = pd.read_csv("FatalitiesFatalityRates.csv")
+	data = pd.read_csv("Inputs/FatalitiesFatalityRates.csv")
 
 	pos1 = [0.1, 0.15, 0.44, 0.8]
 	pos2 = [0.69, 0.15, 0.24, 0.8]
@@ -163,8 +175,9 @@ def makeFatalitiesFig():
 	ax2.plot(data.Year, data.FatalityRate, '-', color = c_fatalityRate)
 	plt.ylim(0,25)
 	plt.text(1990, 3, 'Fatality Rate', FontSize = 8, color = c_fatalityRate)
-	ax2.tick_params(axis='both', which='major', labelsize=8)
-	plt.ylabel('Fatalities per 100 Million Vehicle Miles', FontSize = 8)
+	ax2.tick_params(axis='both', which='major', labelsize=8, color = c_fatalityRate, labelcolor = c_fatalityRate)
+	ax2.spines['right'].set_color(c_fatalityRate)
+	plt.ylabel('Fatalities per 100 Million Vehicle Miles', FontSize = 8, color = c_fatalityRate)
 	plt.xlabel('Year', FontSize = 8)
 	plt.xlim(1920, 2018)
 	plt.text(2013, 23, 'a', FontSize = 8)
@@ -176,8 +189,9 @@ def makeFatalitiesFig():
 	ax3 = plt.subplot(1,2,2)
 	ax3.set_position(pos2)
 	ax3.plot(data.Year, data.MPG, '-', color = c_mpgFleet)
-	ax3.tick_params(axis='both', which='major', labelsize=8)
-	plt.ylabel('On-road Fleet Average Miles per Gallon', FontSize = 8)
+	ax3.tick_params(axis='y', which='major', labelsize=8, color =c_mpgFleet, labelcolor = c_mpgFleet)
+	ax3.spines['left'].set_color(c_mpgFleet)
+	plt.ylabel('On-road Fleet Average Miles per Gallon', FontSize = 8, color = c_mpgFleet)
 	plt.xlabel('Year', FontSize = 8)
 	plt.xlim(1965, 2018)
 	plt.text(1999, 18, 'MPG', FontSize = 8, color = c_mpgFleet)
@@ -187,14 +201,16 @@ def makeFatalitiesFig():
 	ax4.set_position(pos2)
 	ax4.plot(data.Year, data.FatalityRate, '-', color = c_fatalityRate)
 	plt.text(1990, 3, 'Fatality Rate', FontSize = 8, color = c_fatalityRate)
-	ax4.tick_params(axis='both', which='major', labelsize=8)
+	ax4.tick_params(axis='both', which='major', labelsize=8, color = c_fatalityRate, labelcolor = c_fatalityRate)
+	ax4.spines['right'].set_color(c_fatalityRate)
+	ax4.spines['left'].set_color(c_mpgFleet)
 	plt.ylim(0,25)
-	plt.ylabel('Fatalities per 100 Million Vehicle Miles', FontSize = 8)
+	plt.ylabel('Fatalities per 100 Million Vehicle Miles', FontSize = 8, color = c_fatalityRate)
 	plt.xlabel('Year', FontSize = 8)
 	plt.text(2013, 23, 'b', FontSize = 8)
 	plt.xlim(1965, 2018)
 
-	plt.savefig('MPGFatalityRate.png', dpi = 300)
+	plt.savefig('Figures/Fig7MPGFatalityRate.png', dpi = 300)
 	plt.clf()
 
 def makeMarginalBenefitCostFig():
@@ -244,19 +260,30 @@ def makeMarginalBenefitCostFig():
 	plt.xlabel('Year', fontsize = 8)
 	plt.title('Light Trucks', fontsize = 8)
 
-	plt.savefig('Figures/MarginalBenefits.png', dpi = 300)
+	plt.savefig('Figures/Fig6MarginalBenefits.png', dpi = 300)
 	plt.clf()
 
-
-
-
-
-
-
-
 # make the figures
+# figure 1 is timeline figure 
+#import timelineFigureNHTSAFlat
+
+# figure 2 is 2 panels: trends in vehicle miles traveled and fuel consumption and differnet testing cycles
 #makeFigVMTFuelEconGasPrices()
+
+# figure 3 is on-road mpg 
+#makeOnRoadMPGfig()
+
+# figure 4 is a plot with vmt, fuel consumpiton, and rebound data 
 #makeReboundFig()
-makeOnRoadMPGfig()
-#makeFatalitiesFig()
+
+# figure 5 is from the other analysis
+
+# figure 6 is the marginal value and marginal cost 
 #makeMarginalBenefitCostFig()
+
+# figure 7 plots fatality data
+#makeFatalitiesFig()
+
+c = np.asarray([7.3,18.05,10.89156351,7.05640579, 23.89473082, 35.72010598, 35.74653434, 35.74653434])
+d = c.clip(max = 20)
+print(d)

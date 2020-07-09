@@ -1028,11 +1028,11 @@ def makeCompFigure(c1, c2, vehicleType, baseYr):
 		plt.title('Passenger Vehicles')
 		#plt.plot([1970, 2018], [1729, 1729], '-', color = [0.5, 0.5, 0.5])
 		#plt.text(1980, 1830, 'Previous 2018 Estimate')
-		figName = 'compFigCars.png'
+		figName = 'Figures/compFigCars.png'
 	else:
 		plt.title('Light Trucks')
 		#plt.plot([1970, 2018], [949,949], '--k')
-		figName = 'compFigTrucks.png'
+		figName = 'Figures/compFigTrucks.png'
 	plt.savefig(figName, dpi=300)
 
 def plotCostCurves(curves, vehicleType, baseYr, low, avg, high, prev):
@@ -1054,26 +1054,26 @@ def plotCostCurves(curves, vehicleType, baseYr, low, avg, high, prev):
 		if avg == 1: 
 			plt.plot(deltaMPG, curves[n,2,1]*deltaMPG + curves[n,3,1]*deltaMPG*deltaMPG)
 			legInfo.append('New Avg')
-			figName = 'Figures/curves'+vehicleType+'avg.png'
+			figName = 'BackupFigures/curves'+vehicleType+'avg.png'
 			if prev == 1:
 				plt.plot(deltaMPG, np.transpose(compData[n]), '--')
 				legInfo.append('Prev Avg')
 		if low == 1:
 			plt.plot(deltaMPG, curves[n,2,0]*deltaMPG + curves[n,3,0]*deltaMPG*deltaMPG)
 			legInfo.append('New Low')
-			figName = 'Figures/curves'+vehicleType+'low.png'
+			figName = 'BackupFigures/curves'+vehicleType+'low.png'
 			if prev == 1: 
 				plt.plot(deltaMPG, np.transpose(compData[n+8]), '--')
 				legInfo.append('Prev Low')
 		if high == 1:
 			plt.plot(deltaMPG, curves[n,2,2]*deltaMPG + curves[n,3,2]*deltaMPG*deltaMPG)
 			legInfo.append('New High')
-			figName = 'Figures/curves'+vehicleType+'high.png'
+			figName = 'BackupFigures/curves'+vehicleType+'high.png'
 			if prev == 1: 
 				plt.plot(deltaMPG, np.transpose(compData[n+16]), '--')
 				legInfo.append('Prev High')
 		if avg == 1 and low == 1 and high == 1:
-			figName = 'Figures/curves'+vehicleType+'all.png'
+			figName = 'BackupFigures/curves'+vehicleType+'all.png'
 		else:
 			plt.legend(legInfo)
 
@@ -1089,7 +1089,7 @@ def plotCostCurves(curves, vehicleType, baseYr, low, avg, high, prev):
 	plt.savefig(figName, dpi = 300)
 
 def makePaperFig(curves, costOut, vehicleType, baseYr):
-	figName = ('placeholder.png')
+	figName = 'placeholder.png'
 	plotData = makeFigure(costOut, figName, vehicleType, baseYr)
 	deltaMPG = np.linspace(0, curves[:,-1,1],100)
 
@@ -1100,6 +1100,7 @@ def makePaperFig(curves, costOut, vehicleType, baseYr):
 	ax1.set_position([0.09, 0.15, 0.28, 0.8])
 	labels = ('1975', '1980', '1992', '2002', '2007', '2017', '2020', '2025')
 
+	
 	for n in range(8):
 		plt.plot(deltaMPG[:,n], curves[n,2,1]*deltaMPG[:,n] + curves[n,3,1]*deltaMPG[:,n]*deltaMPG[:,n])
 		if n < 5:
@@ -1109,7 +1110,7 @@ def makePaperFig(curves, costOut, vehicleType, baseYr):
 	ax1.tick_params(axis='both', which='major', labelsize=8)
 	plt.ylabel('Increase in Retail Price Equivalent ['+str(baseYr)+'$]', FontSize=8)
 	plt.text(42, 9500, 'a', FontSize=8)
-	plt.xlabel('MPG Improvement from Base Year', FontSize=8)
+	plt.xlabel('$\Delta$ MPG from Base Year', FontSize=8)
 	plt.xlim(0,45)
 	plt.ylim(0, 10000)
 	
@@ -1150,10 +1151,209 @@ def makePaperFig(curves, costOut, vehicleType, baseYr):
 	plt.xlabel('Year', FontSize=8)
 	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
 
-	print('cars', plotData[32, :])
-	print('cars', plotData[43, :])
+	#print('cars', plotData[32, :])
+	#print('cars', plotData[43, :])
 	
-	plt.savefig('Figures/Figure4.png', dpi = 300)
+	plt.savefig('Figures/Figure5_carCumulativeFig.png', dpi = 300)
+	plt.clf()
+	#############################################################
+
+	
+	plotData = makeFigure(costOut, figName, vehicleType, baseYr)
+	deltaMPG = np.linspace(0, curves[:,-1,1],100)
+
+	colors = [[0.9, 0.8, 0], [0.2, 0.8, 0.8], [0.7, 0.2, 0.5]]
+
+	fig = plt.figure(figsize=(7,4))
+	ax1 = fig.add_subplot(3,3,7) # plot the average cost curves
+	ax1.set_position([0.09, 0.15, 0.28, 0.8])
+	labels = ('1975', '1980', '1992', '2002', '2007', '2017', '2020$^*$', '2025$^*$')
+	data = pd.read_csv("Inputs/onRoadMPGData.csv")
+	x_adder = np.array([float(data.loc[data.ModelYear == 1975]['EPA_Test']), float(data.loc[data.ModelYear == 1980]['EPA_Test']), float(data.loc[data.ModelYear == 1992]['EPA_Test']), float(data.loc[data.ModelYear == 2002]['EPA_Test']), float(data.loc[data.ModelYear == 2007]['EPA_Test']), float(data.loc[data.ModelYear == 2017]['EPA_Test']), float(data.loc[data.ModelYear == 2018]['EPA_Test']), float(data.loc[data.ModelYear == 2018]['EPA_Test'])])
+	
+	for n in range(8):
+		plt.plot(deltaMPG[:,n]+x_adder[n], curves[n,2,1]*deltaMPG[:,n] + curves[n,3,1]*deltaMPG[:,n]*deltaMPG[:,n])
+		if n < 5:
+			plt.text(deltaMPG[-1,n]+x_adder[n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8, HorizontalAlignment = 'right')
+		else: 
+			plt.text(deltaMPG[-1,n]+x_adder[n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8)
+	ax1.tick_params(axis='both', which='major', labelsize=8)
+	plt.ylabel('Increase in Retail Price Equivalent ['+str(baseYr)+'$]', FontSize=8)
+	plt.text(67, 9500, 'a', FontSize=8)
+	plt.xlabel('MPG from Base Year', FontSize=8)
+	plt.xlim(0,75)
+	plt.ylim(0, 10000)
+	
+	doublex = 0.46
+	xlen = 0.5
+	ax2 = fig.add_subplot(3,3,2) # plot the cpi data
+	ax2.set_position([doublex, 0.7, xlen, 0.25])
+	cpiDatayr, cpiData1, cpiData2= importCPIData(vehicleType)
+	ax2.plot(cpiDatayr, cpiData1, ':', color = [0, 0.5, 0.5]) #change this 
+	ax2.plot(cpiDatayr, cpiData2, '-', color = [0.3, 0.3, 0.3]) #change colors 
+	ax2.text(cpiDatayr[10], cpiData1[10]+5, 'New Vehicles', FontSize=8, color = [0, 0.5, 0.5])
+	ax2.text(cpiDatayr[57], cpiData2[57]+15, 'Car Transactions', FontSize=8, color = [0.3, 0.3, 0.3], HorizontalAlignment = 'center')
+	plt.ylabel('CPI', FontSize=8)
+	plt.ylim([0, 150])
+	plt.xlim(1950,2018)
+	ax2.text(2013, 150*0.85, 'b', FontSize=8)
+	ax2.tick_params(axis='both', which='major', labelsize=8)
+
+	ax3 = fig.add_subplot(3,3,8) # plot the cumulative cost data
+	ax3.set_position([doublex, 0.15, xlen, 0.45])
+	ax3.tick_params(axis='both', which='major', labelsize=8)
+
+	ax3.plot(plotData[:,0], plotData[:,1], '-', color = colors[0])
+	ax3.text(plotData[43,0], plotData[43,1], 'Avg.', FontSize=8, color = colors[0])
+	ax3.fill_between(plotData[:,0], plotData[:,2], plotData[:,3], facecolor = colors[0], alpha = 0.5)
+
+	ax3.plot(plotData[:,0], plotData[:,4], '-', color = colors[1])
+	ax3.text(plotData[43,0], plotData[43,4], 'Low', FontSize=8, color = colors[1])
+	ax3.fill_between(plotData[:,0], plotData[:,5], plotData[:,6], facecolor = colors[1], alpha = 0.5)
+
+	ax3.plot(plotData[:,0], plotData[:,7], '-', color = colors[2])
+	ax3.text(plotData[43,0], plotData[43,7], 'High', FontSize=8, color = colors[2])
+	ax3.fill_between(plotData[:,0], plotData[:,8], plotData[:,9], facecolor = colors[2], alpha = 0.5)
+
+	plt.xlim(1950,2018)
+	plt.ylim(0, 3000)
+	plt.ylabel('Cumulative Cost ['+str(baseYr)+'$]', FontSize=8)
+	plt.xlabel('Year', FontSize=8)
+	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
+
+	plt.savefig('Figures/AlternativeFigure5_carCumulativeFig.png', dpi = 300)
+	plt.clf()
+
+	##########
+	plotData = makeFigure(costOut, figName, vehicleType, baseYr)
+	deltaMPG = np.linspace(0, curves[:,-1,1].clip(max = 20),100)
+
+	fig = plt.figure(figsize=(7,4))
+	ax1 = fig.add_subplot(3,3,7) # plot the average cost curves
+	ax1.set_position([0.09, 0.15, 0.28, 0.8])
+	labels = ('1975', '1980', '1992', '2002', '2007', '2017', '2020$^*$', '2025$^*$')
+	data = pd.read_csv("Inputs/onRoadMPGData.csv")
+	x_adder = np.array([float(data.loc[data.ModelYear == 1975]['EPA_Test']), float(data.loc[data.ModelYear == 1980]['EPA_Test']), float(data.loc[data.ModelYear == 1992]['EPA_Test']), float(data.loc[data.ModelYear == 2002]['EPA_Test']), float(data.loc[data.ModelYear == 2007]['EPA_Test']), float(data.loc[data.ModelYear == 2017]['EPA_Test']), float(data.loc[data.ModelYear == 2018]['EPA_Test']), float(data.loc[data.ModelYear == 2018]['EPA_Test'])])
+	
+	for n in range(8):
+		plt.plot(deltaMPG[:,n]+x_adder[n], curves[n,2,1]*deltaMPG[:,n] + curves[n,3,1]*deltaMPG[:,n]*deltaMPG[:,n])
+		if n < 5:
+			plt.text(deltaMPG[-1,n]+x_adder[n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8, HorizontalAlignment = 'right')
+		else: 
+			plt.text(deltaMPG[-1,n]+x_adder[n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8)
+	ax1.tick_params(axis='both', which='major', labelsize=8)
+	plt.ylabel('Increase in Retail Price Equivalent ['+str(baseYr)+'$]', FontSize=8)
+	plt.text(60, 5200, 'a', FontSize=8)
+	plt.xlabel('MPG from Base Year', FontSize=8)
+	plt.xlim(0,65)
+	plt.ylim(0, 5500)
+	
+	doublex = 0.46
+	xlen = 0.5
+	ax2 = fig.add_subplot(3,3,2) # plot the cpi data
+	ax2.set_position([doublex, 0.7, xlen, 0.25])
+	cpiDatayr, cpiData1, cpiData2= importCPIData(vehicleType)
+	ax2.plot(cpiDatayr, cpiData1, ':', color = [0, 0.5, 0.5]) #change this 
+	ax2.plot(cpiDatayr, cpiData2, '-', color = [0.3, 0.3, 0.3]) #change colors 
+	ax2.text(cpiDatayr[10], cpiData1[10]+5, 'New Vehicles', FontSize=8, color = [0, 0.5, 0.5])
+	ax2.text(cpiDatayr[57], cpiData2[57]+15, 'Car Transactions', FontSize=8, color = [0.3, 0.3, 0.3], HorizontalAlignment = 'center')
+	plt.ylabel('CPI', FontSize=8)
+	plt.ylim([0, 150])
+	plt.xlim(1950,2018)
+	ax2.text(2013, 150*0.85, 'b', FontSize=8)
+	ax2.tick_params(axis='both', which='major', labelsize=8)
+
+	ax3 = fig.add_subplot(3,3,8) # plot the cumulative cost data
+	ax3.set_position([doublex, 0.15, xlen, 0.45])
+	ax3.tick_params(axis='both', which='major', labelsize=8)
+
+	ax3.plot(plotData[:,0], plotData[:,1], '-', color = colors[0])
+	ax3.text(plotData[43,0], plotData[43,1], 'Avg.', FontSize=8, color = colors[0])
+	ax3.fill_between(plotData[:,0], plotData[:,2], plotData[:,3], facecolor = colors[0], alpha = 0.5)
+
+	ax3.plot(plotData[:,0], plotData[:,4], '-', color = colors[1])
+	ax3.text(plotData[43,0], plotData[43,4], 'Low', FontSize=8, color = colors[1])
+	ax3.fill_between(plotData[:,0], plotData[:,5], plotData[:,6], facecolor = colors[1], alpha = 0.5)
+
+	ax3.plot(plotData[:,0], plotData[:,7], '-', color = colors[2])
+	ax3.text(plotData[43,0], plotData[43,7], 'High', FontSize=8, color = colors[2])
+	ax3.fill_between(plotData[:,0], plotData[:,8], plotData[:,9], facecolor = colors[2], alpha = 0.5)
+
+	plt.xlim(1950,2018)
+	plt.ylim(0, 3000)
+	plt.ylabel('Cumulative Cost ['+str(baseYr)+'$]', FontSize=8)
+	plt.xlabel('Year', FontSize=8)
+	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
+	
+	plt.savefig('Figures/AlternativeFigure5_carCumulativeFig_clippedat20mpg.png', dpi = 300)
+	plt.clf()
+
+	##########
+	plotData = makeFigure(costOut, figName, vehicleType, baseYr)
+	deltaMPG = np.linspace(0, curves[:,-1,1].clip(max = 10),100)
+
+	colors = [[0.9, 0.8, 0], [0.2, 0.8, 0.8], [0.7, 0.2, 0.5]]
+
+	fig = plt.figure(figsize=(7,4))
+	ax1 = fig.add_subplot(3,3,7) # plot the average cost curves
+	ax1.set_position([0.09, 0.15, 0.28, 0.8])
+	labels = ('1975', '1980', '1992', '2002', '2007', '2017', '2020$^*$', '2025$^*$')
+	data = pd.read_csv("Inputs/onRoadMPGData.csv")
+	x_adder = np.array([float(data.loc[data.ModelYear == 1975]['EPA_Test']), float(data.loc[data.ModelYear == 1980]['EPA_Test']), float(data.loc[data.ModelYear == 1992]['EPA_Test']), float(data.loc[data.ModelYear == 2002]['EPA_Test']), float(data.loc[data.ModelYear == 2007]['EPA_Test']), float(data.loc[data.ModelYear == 2017]['EPA_Test']), float(data.loc[data.ModelYear == 2018]['EPA_Test']), float(data.loc[data.ModelYear == 2018]['EPA_Test'])])
+	
+	for n in range(8):
+		plt.plot(deltaMPG[:,n]+x_adder[n], curves[n,2,1]*deltaMPG[:,n] + curves[n,3,1]*deltaMPG[:,n]*deltaMPG[:,n])
+		if n < 5:
+			plt.text(deltaMPG[-1,n]+x_adder[n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8, HorizontalAlignment = 'right')
+		else: 
+			plt.text(deltaMPG[-1,n]+x_adder[n], curves[n,2,1]*deltaMPG[-1,n] + curves[n,3,1]*deltaMPG[-1,n]*deltaMPG[-1,n], labels[n], FontSize=8)
+	ax1.tick_params(axis='both', which='major', labelsize=8)
+	plt.ylabel('Increase in Retail Price Equivalent ['+str(baseYr)+'$]', FontSize=8)
+	plt.text(45, 2400, 'a', FontSize=8)
+	plt.xlabel('MPG from Base Year', FontSize=8)
+	plt.xlim(0,50)
+	plt.ylim(0, 2500)
+	
+	doublex = 0.46
+	xlen = 0.5
+	ax2 = fig.add_subplot(3,3,2) # plot the cpi data
+	ax2.set_position([doublex, 0.7, xlen, 0.25])
+	cpiDatayr, cpiData1, cpiData2= importCPIData(vehicleType)
+	ax2.plot(cpiDatayr, cpiData1, ':', color = [0, 0.5, 0.5]) #change this 
+	ax2.plot(cpiDatayr, cpiData2, '-', color = [0.3, 0.3, 0.3]) #change colors 
+	ax2.text(cpiDatayr[10], cpiData1[10]+5, 'New Vehicles', FontSize=8, color = [0, 0.5, 0.5])
+	ax2.text(cpiDatayr[57], cpiData2[57]+15, 'Car Transactions', FontSize=8, color = [0.3, 0.3, 0.3], HorizontalAlignment = 'center')
+	plt.ylabel('CPI', FontSize=8)
+	plt.ylim([0, 150])
+	plt.xlim(1950,2018)
+	ax2.text(2013, 150*0.85, 'b', FontSize=8)
+	ax2.tick_params(axis='both', which='major', labelsize=8)
+
+	ax3 = fig.add_subplot(3,3,8) # plot the cumulative cost data
+	ax3.set_position([doublex, 0.15, xlen, 0.45])
+	ax3.tick_params(axis='both', which='major', labelsize=8)
+
+	ax3.plot(plotData[:,0], plotData[:,1], '-', color = colors[0])
+	ax3.text(plotData[43,0], plotData[43,1], 'Avg.', FontSize=8, color = colors[0])
+	ax3.fill_between(plotData[:,0], plotData[:,2], plotData[:,3], facecolor = colors[0], alpha = 0.5)
+
+	ax3.plot(plotData[:,0], plotData[:,4], '-', color = colors[1])
+	ax3.text(plotData[43,0], plotData[43,4], 'Low', FontSize=8, color = colors[1])
+	ax3.fill_between(plotData[:,0], plotData[:,5], plotData[:,6], facecolor = colors[1], alpha = 0.5)
+
+	ax3.plot(plotData[:,0], plotData[:,7], '-', color = colors[2])
+	ax3.text(plotData[43,0], plotData[43,7], 'High', FontSize=8, color = colors[2])
+	ax3.fill_between(plotData[:,0], plotData[:,8], plotData[:,9], facecolor = colors[2], alpha = 0.5)
+
+	plt.xlim(1950,2018)
+	plt.ylim(0, 3000)
+	plt.ylabel('Cumulative Cost ['+str(baseYr)+'$]', FontSize=8)
+	plt.xlabel('Year', FontSize=8)
+	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
+	
+	plt.savefig('Figures/AlternativeFigure5_carCumulativeFig_clippedat10mpg.png', dpi = 300)
+	plt.clf()
+
 
 def makeSIFig(curves, costOut, vehicleType, baseYr):
 	figName = ('placeholder.png')
@@ -1220,7 +1420,7 @@ def makeSIFig(curves, costOut, vehicleType, baseYr):
 	plt.xlabel('Year', FontSize=8)
 	ax3.text(2013, 3000*0.9, 'c', FontSize=8)
 
-	print('trucks', plotData[32, :])
-	print('trucks', plotData[43, :])
+	#print('trucks', plotData[32, :])
+	#print('trucks', plotData[43, :])
 	
 	plt.savefig('Figures/TruckCumulativeCosts.png', dpi = 300)

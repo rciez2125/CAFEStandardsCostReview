@@ -48,8 +48,8 @@ def runAnalysis(vehicleType):
 	for n in range(8):
 		drawnCoeffs[n,0] = np.random.normal(inflatedCurves[n,2], inflatedCurves[n,4],1)
 		drawnCoeffs[n,1] = np.random.normal(inflatedCurves[n,3], inflatedCurves[n,5],1)
-	print('Curves')
-	print(inflatedCurves)
+	#print('Curves')
+	#print(inflatedCurves)
 	#print('Drawn coeffs')
 	#print(drawnCoeffs)
 
@@ -73,7 +73,7 @@ def runAnalysis(vehicleType):
 	#print(yrl_coeffs_data.shape)
 
 	# save some summary statistics
-	print(yrl_coeffs_data[:,1,:].shape)
+	#print(yrl_coeffs_data[:,1,:].shape)
 	#print(np.mean(yrl_coeffs_data[:,1,:], axis = 0))
 	#print(np.mean(yrl_coeffs_data[:,1,:], axis = 2))
 	#print(np.mean(yrl_coeffs_data[:,1,:], axis = 2).shape)

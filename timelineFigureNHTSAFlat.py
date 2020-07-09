@@ -288,7 +288,7 @@ def makeAFigure():
 
 	#matplotlib.patches.Patch(edgecolor=None, facecolor=None, color=None, linewidth=None, linestyle=None, antialiased=None, hatch=None, fill=True, capstyle=None, joinstyle=None, **kwargs)
 
-	plt.savefig('TimelineFigureNHTSACenter.png', dpi = 300)
+	plt.savefig('Figures/TimelineFigureNHTSACenter.png', dpi = 300)
 	plt.clf()
 
 makeAFigure()
